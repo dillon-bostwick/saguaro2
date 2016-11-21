@@ -16,6 +16,7 @@ const Controllers = require('./lib/Controllers');
 const utils = require('./lib/utils');
 const globals = require('./lib/globals');
 const models = require('./lib/models');
+const User = require('mongoose').model('User');
 
 const authRedirects = {
 	successRedirect: '/#!/dashboard',
@@ -41,14 +42,27 @@ router.use((err, req, res, next) => {
  * Verify valid SID - respond with 401 if not logged in
  */
 router.use((req, res, next) => {
-	if (!req.user && !globals.testingMode) {
-		res.sendStatus(401)
-	} else {
-		next();
-	}
+    if (!req.user && !globals.testingMode) {
+        res.sendStatus(401)
+    } else if (!req.user && globals.testingMode) {
+        console.log('Bypassing cookie verification and logging in manually');
+        
+        User.findById(globals.testUserId, (err, user) => {
+            if (err) {
+                res.sendStatus(500)
+                console.log(err);
+                return;
+            } else {
+                req.user = user;
+                next();
+            }
+        });
+    } else {
+        next();
+    }
 });
 
-router.get('/currentuser', (req, res, next) => { res.send(req.user); });
+router.get('/currentuser', (req, res, next) => { res.send(req.user); }); // TODO: strip down some info, so only includes first and last names
 router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);
 router.get('/refreshdropzone', Controllers.refreshDropzone);
