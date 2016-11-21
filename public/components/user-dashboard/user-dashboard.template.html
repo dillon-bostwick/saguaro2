@@ -1,0 +1,98 @@
+<div ng-include="'navbar.partial.html'"></div>
+
+<h2 class="span12">Welcome back, {{$ctrl.CurrentUser.firstName}}</h2>
+
+<!-- list selector -->
+<div class="row">
+	<div class="col-sm-2"></div>
+
+	<div class="col-sm-4">
+	   <div class="span12 well well-lg">
+			<div class="btn-group">
+				<label class="btn btn-primary"
+					   ng-model="$ctrl.view"
+					   uib-btn-radio="'QUEUE'"
+					   ng-change="$ctrl.updateInvList()">
+					My Queue
+				</label>
+
+				<label class="btn btn-primary"
+					   ng-model="$ctrl.view"
+					   uib-btn-radio="'TEAM'",
+					   ng-change="$ctrl.updateInvList()">
+					Team View
+				</label>
+
+				<label class="btn btn-primary"
+					   ng-model="$ctrl.view"
+					   uib-btn-radio="'ARCHIVE'",
+					   ng-change="$ctrl.updateInvList()">
+					Archives
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<div class="span12 well well-lg">
+			<label>Sort by:</label>
+
+			<select 
+				ng-model="$ctrl.currentSorter"
+				ng-options='option.value 
+							as option.desc
+							for option
+							in $ctrl.SORTOPTIONS'>
+			</select>
+		</div>
+	</div>
+
+	<div class="col-sm-2"></div>
+</div>
+
+<div class="col-sm-12">
+	<div class="well well-lg" >
+		<table class="table table-hover" ng-if="$ctrl.invList.length !== 0">
+			<thead>
+				<tr>
+					<th>Received date</th>
+					<th>Keyed date</th>
+					<th>Service date</th>
+					<th>Vendor</th>
+					<th>Details</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			
+			<tbody ng-repeat="invoice in $ctrl.invList | orderBy: $ctrl.currentSorter">
+				<tr ng-click="$ctrl.redirectInvoiceDetail(invoice._id)">
+					<td>{{invoice.actions[0].date | date : 'MMM d, y h:mm a'}}</td> <!-- last is always received -->
+					<td>{{invoice.actions[invoice.actions.length - 1].date | date : 'MMM d, y h:mm a'}}</td> <!-- 0 is always created -->
+					<td>{{invoice.serviceDate | date}}</td>
+					<td>{{$ctrl.getNameById(invoice._vendor, 'Vendors') || 'N/A'}}</td>
+					<td>{{$ctrl.getDetailStr(invoice)}}</td>
+					<td>{{(invoice.amount | currency) || 'Not entered'}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 ng-if="$ctrl.invList.length === 0" class="span12">Your queue is empty!</h3>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

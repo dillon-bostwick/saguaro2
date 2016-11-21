@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<QBWCXML>
+	<AppName>ProjectSaguaro</AppName>
+	<AppID></AppID>
+	<AppURL>https://saguaroqbtester.herokuapp.com/wsdl</AppURL>
+	<CertURL>https://herokuapp.com</CertURL> <!-- piggybacking on SSL -->
+	<AppDescription>An invoice manager</AppDescription>
+	<AppSupport>https://seguaroqbtester.herokuapp.com/#!/404</AppSupport>
+	<OwnerID>{d95227a8-d41b-4b94-84d3-158eda5c9b9e}</OwnerID> <!-- use new GUID each time -->
+	<FileID>{a4a9dce8-18e3-4916-bc4e-9550b15698d4}</FileID> <!-- use new GUID each time -->
+	<UserName>saguaro</UserName>
+	<QBType>QBFS</QBType>
+	<Scheduler>
+		<RunEveryNMinutes>1</RunEveryNMinutes>
+	</Scheduler>
+	<IsReadOnly>false</IsReadOnly>
+</QBWCXML>

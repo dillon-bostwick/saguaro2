@@ -1,0 +1,44 @@
+[
+{
+	"name": "Crossvine",
+	"shortHand": "CSV",
+	"subHoodOptions": ["Dev", "Hood", "HOA", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+},
+
+{
+	"name": "Serenbe",
+	"shortHand": "SER",
+	"subHoodOptions": ["Hood", 332, 333, 334, 335, 336, 337, 345, 346, 347, 348, 369, 370]
+},
+
+{
+	"name": "Oak Lane",
+	"shortHand": "OAK",
+	"subHoodOptions": ["Dev", "Hood", "HOA", 1, 2, 3, 4, 5, 6, 7, 8]
+},
+
+{
+	"name": "Parkside",
+	"shortHand": "PKS",
+	"subHoodOptions": ["Dev", "Hood", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+},
+
+{
+	"name": "Emerson",
+	"shortHand": "MSN",
+	"subHoodOptions": ["Dev", "Hood", 1, 2, 3, 4, 5, 6, 7, 8]
+},
+
+{
+	"name": "Five Lakeside",
+	"shortHand": "FLS",
+	"subHoodOptions": ["Dev", "Hood", 1, 2, 3, 4, 5]
+},
+
+/* TODO: Not sure what to do about this yet... */
+{
+	"name": "INFILLS",
+	"shortHand": "",
+	"subHoodOptions": ["76KNG", "80TUX", "150EBC", "259RCL", "345AND", "355RVR", "545FHD", "710CDR", "910RCH", "1105EDN", "1111EDN", "2383MNT", "3193FRN", "4063ITR", "4075ITR", "4081ITR", "4087ITR", "5628CON", "14289PRD", "HP", "JC"]
+}
+]

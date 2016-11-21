@@ -1,0 +1,64 @@
+<h3>Details</h3>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Service date</th>
+			<th>Vendor</th>
+			<th>Invoice #</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td>
+				<p class="input-group">
+						<input
+							uib-datepicker-popup="MM/dd/yyyy"
+							ng-if="$ctrl.canEdit"
+							name="Service Date"
+  						type="text"
+  						class="form-control"
+  						ng-model="$ctrl.Invoice.serviceDate"
+  						is-open="$ctrl.openDate"
+  						datepicker-options="$ctrl.datePickerOptions"
+  						close-text="Close"
+  						size="5"/>
+
+					 	<span class="input-group-btn">
+						<button
+							type="button"
+							class="btn btn-default"
+							ng-click="$ctrl.openDate = true">
+
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+						</span>
+				</p>
+			</td>
+
+			<!-- Vendor picker -->
+			<!-- TODO: Doesn't filter based of active - always show all -->
+			<td>
+				<select
+					ng-if="$ctrl.canEdit"
+					name="Vendor"
+					ng-model="$ctrl.Invoice._vendor"
+					ng-options="vendor._id
+						as vendor.name
+						for vendor
+						in $ctrl.Vendors">
+				</select>
+			</td>
+
+			<!-- invoice id -->
+			<td>
+				<input
+					ng-if="$ctrl.canEdit"
+					name="Invoice #"
+					type="text"
+					ng-model="$ctrl.Invoice.invNum"/>
+			</td>
+		</tr>
+	</tbody>
+</table>

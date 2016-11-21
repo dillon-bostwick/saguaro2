@@ -1,0 +1,20 @@
+<h3>Invoice History:</h3>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Description</th>
+			<th>User</th>
+			<th>Comment</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="action in $ctrl.Invoice.actions">
+			<td>{{action.date | date : 'MMM d, y h:mm a'}}</td>
+			<td>{{action.desc}}</td>
+			<td>{{$ctrl.getNameById(action._user, 'Users')}}</td>
+			<td>{{action.comment || 'N/A'}}</td>
+		</tr>
+	</tbody>
+</table>

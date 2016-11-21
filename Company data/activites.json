@@ -1,0 +1,771 @@
+[
+ {
+  "code": 100,
+  "desc":"Real Estate Purchase"
+ },
+ {
+  "code": 110,
+  "desc":"Acquisitions Costs"
+ },
+ {
+  "code": 115,
+  "desc":"Due Diligence"
+ },
+ {
+  "code": 120,
+  "desc":"Professional Services"
+ },
+ {
+  "code": 122,
+  "desc":"Legal Fees"
+ },
+ {
+  "code": 124,
+  "desc":"Commissions"
+ },
+ {
+  "code": 130,
+  "desc":"Appraisals"
+ },
+ {
+  "code": 140,
+  "desc":"Closing Cost"
+ },
+ {
+  "code": 144,
+  "desc":"Int & Finan Fees"
+ },
+ {
+  "code": 150,
+  "desc":"Property Tax"
+ },
+ {
+  "code": 160,
+  "desc":"Insurance - Title"
+ },
+ {
+  "code": 200,
+  "desc":"Land Planning - Concept Plans"
+ },
+ {
+  "code": 201,
+  "desc":"Topo & Boundary Surveys"
+ },
+ {
+  "code": 202,
+  "desc":"Development Const Docs & Routing"
+ },
+ {
+  "code": 204,
+  "desc":"Hydrology Report"
+ },
+ {
+  "code": 205,
+  "desc":"Tree Protect/Replace"
+ },
+ {
+  "code": 206,
+  "desc":"Permitting"
+ },
+ {
+  "code": 208,
+  "desc":"Develop Const Mgmt."
+ },
+ {
+  "code": 210,
+  "desc":"Engineering"
+ },
+ {
+  "code": 215,
+  "desc":"GeoTech"
+ },
+ {
+  "code": 220,
+  "desc":"Final Plat  |  As-Builts"
+ },
+ {
+  "code": 310,
+  "desc":"Bonds"
+ },
+ {
+  "code": 312,
+  "desc":"Permits Fees"
+ },
+ {
+  "code": 318,
+  "desc":"Municipal Fees / Fines"
+ },
+ {
+  "code": 320,
+  "desc":"Surveying - Cnst Staking"
+ },
+ {
+  "code": 322,
+  "desc":"Erosion Control"
+ },
+ {
+  "code": 326,
+  "desc":"Portable Toilet"
+ },
+ {
+  "code": 328,
+  "desc":"Demolition"
+ },
+ {
+  "code": 330,
+  "desc":"Clearing & Grubbing"
+ },
+ {
+  "code": 340,
+  "desc":"Grading"
+ },
+ {
+  "code": 342,
+  "desc":"Import / Export Dirt"
+ },
+ {
+  "code": 346,
+  "desc":"Site Retaining Walls"
+ },
+ {
+  "code": 348,
+  "desc":"Rock Removal"
+ },
+ {
+  "code": 350,
+  "desc":"Sanitary Sewer"
+ },
+ {
+  "code": 352,
+  "desc":"Storm Sewer"
+ },
+ {
+  "code": 353,
+  "desc": "Detention - Water Quality Structures"
+ },
+ {
+  "code": 354,
+  "desc":"Water Main"
+ },
+ {
+  "code": 360,
+  "desc":"Gas Main"
+ },
+ {
+  "code": 362,
+  "desc":"Underground Power"
+ },
+ {
+  "code": 363,
+  "desc":"Street Lights"
+ },
+ {
+  "code": 366,
+  "desc":"Telephone Line Setup"
+ },
+ {
+  "code": 368,
+  "desc":"Cable TV Line Setup"
+ },
+ {
+  "code": 370,
+  "desc":"Curb & Gutter"
+ },
+ {
+  "code": 372,
+  "desc":"Paving"
+ },
+ {
+  "code": 374,
+  "desc":"Subgrade Treatment"
+ },
+ {
+  "code": 376,
+  "desc":"Sidewalks"
+ },
+ {
+  "code": 380,
+  "desc":"St Signs & Striping"
+ },
+ {
+  "code": 390,
+  "desc":"Trash Disposal"
+ },
+ {
+  "code": 392,
+  "desc":"Repairs"
+ },
+ {
+  "code": 401,
+  "desc":"Land Architecture"
+ },
+ {
+  "code": 402,
+  "desc":"Landscaping"
+ },
+ {
+  "code": 403,
+  "desc":"Irrigation"
+ },
+ {
+  "code": 405,
+  "desc":"Erosion Control"
+ },
+ {
+  "code": 410,
+  "desc":"Entrance Signs"
+ },
+ {
+  "code": 415,
+  "desc":"Entrance gates/fencing"
+ },
+ {
+  "code": 420,
+  "desc":"Clubhouse"
+ },
+ {
+  "code": 430,
+  "desc":"Pool"
+ },
+ {
+  "code": 440,
+  "desc":"Tennis"
+ },
+ {
+  "code": 450,
+  "desc":"Park & Hardscape"
+ },
+ {
+  "code": 460,
+  "desc":"Paving Topping"
+ },
+ {
+  "code": 470,
+  "desc":"Sidewalks @ Entrance"
+ },
+ {
+  "code": 490,
+  "desc":"Initiation for Club"
+ },
+ {
+  "code": 491,
+  "desc":"Other Hood Materials"
+ },
+ {
+  "code": 492,
+  "desc":"Other Hood Labor"
+ },
+ {
+  "code": 495,
+  "desc":"Surveying"
+ },
+ {
+  "code": 510,
+  "desc":"Marketing Signs"
+ },
+ {
+  "code": 520,
+  "desc":"Marketing Collateral"
+ },
+ {
+  "code": 530,
+  "desc":"Other Mkting Materials"
+ },
+ {
+  "code": 540,
+  "desc":"Sales Office/ Trailer Set up"
+ },
+ {
+  "code": 570,
+  "desc":"Model Home"
+ },
+ {
+  "code": 590,
+  "desc":"Trailer/Sales Office Upkeep"
+ },
+ {
+  "code": 595,
+  "desc":"Trailer Rental & Utilities"
+ },
+ {
+  "code": 800,
+  "desc":"Portable Toilet"
+ },
+ {
+  "code": 810,
+  "desc":"Bonds"
+ },
+ {
+  "code": 822,
+  "desc":"Legal Fees"
+ },
+ {
+  "code": 842,
+  "desc":"Int & Finance Fees"
+ },
+ {
+  "code": 899,
+  "desc":"Gen Dev Repairs"
+ },
+ {
+  "code": 1000,
+  "desc":"Building Permits"
+ },
+ {
+  "code": 1150,
+  "desc":"Engineering"
+ },
+ {
+  "code": 1200,
+  "desc":"Surveying"
+ },
+ {
+  "code": 1500,
+  "desc":"Water/Sewer Tap Permit"
+ },
+ {
+  "code": 1510,
+  "desc":"Water & Sewer Line"
+ },
+ {
+  "code": 1520,
+  "desc":"Water Service"
+ },
+ {
+  "code": 1550,
+  "desc":"Septic System"
+ },
+ {
+  "code": 1600,
+  "desc":"Gas Service"
+ },
+ {
+  "code": 1610,
+  "desc":"Electric Service"
+ },
+ {
+  "code": 2000,
+  "desc":"Erosion Control"
+ },
+ {
+  "code": 2100,
+  "desc":"Clear Lot"
+ },
+ {
+  "code": 2110,
+  "desc":"Haul Debris"
+ },
+ {
+  "code": 2120,
+  "desc":"Demolition"
+ },
+ {
+  "code": 2200,
+  "desc":"Grading - Rough"
+ },
+ {
+  "code": 2210,
+  "desc":"Haul Dirt"
+ },
+ {
+  "code": 2400,
+  "desc":"Retaining Wall"
+ },
+ {
+  "code": 3000,
+  "desc":"Foundation Material"
+ },
+ {
+  "code": 3010,
+  "desc":"Foundation Labor"
+ },
+ {
+  "code": 3020,
+  "desc":"Pump Concrete"
+ },
+ {
+  "code": 3030,
+  "desc":"Helical Piers"
+ },
+ {
+  "code": 3050,
+  "desc":"Concrete Block Mat."
+ },
+ {
+  "code": 3060,
+  "desc":"Concrete Block Labor"
+ },
+ {
+  "code": 3100,
+  "desc":"Waterproofing"
+ },
+ {
+  "code": 3200,
+  "desc":"Slab Material"
+ },
+ {
+  "code": 3210,
+  "desc":"Slab Labor"
+ },
+ {
+  "code": 3500,
+  "desc":"Framing Material"
+ },
+ {
+  "code": 3600,
+  "desc":"Framing Labor"
+ },
+ {
+  "code": 4050,
+  "desc":"Housewrap"
+ },
+ {
+  "code": 4100,
+  "desc":"Roofing Material"
+ },
+ {
+  "code": 4110,
+  "desc":"Roofing Labor"
+ },
+ {
+  "code": 4150,
+  "desc":"Metal Roof"
+ },
+ {
+  "code": 4200,
+  "desc":"Windows & Exterior Drs"
+ },
+ {
+  "code": 4210,
+  "desc":"Window & Door Installation"
+ },
+ {
+  "code": 4300,
+  "desc":"Siding & Cornice Mat."
+ },
+ {
+  "code": 4310,
+  "desc":"Siding & Cornice Labor"
+ },
+ {
+  "code": 4400,
+  "desc":"Brick/Stone Material"
+ },
+ {
+  "code": 4410,
+  "desc":"Brick/Stone Labor"
+ },
+ {
+  "code": 4500,
+  "desc":"Stucco"
+ },
+ {
+  "code": 4600,
+  "desc":"Porch Trim Material"
+ },
+ {
+  "code": 4610,
+  "desc":"Porch Trim Labor"
+ },
+ {
+  "code": 4650,
+  "desc":"Deck Material"
+ },
+ {
+  "code": 4660,
+  "desc":"Deck Labor"
+ },
+ {
+  "code": 4700,
+  "desc":"Gutters & Downspouts"
+ },
+ {
+  "code": 4710,
+  "desc":"Shutters - Exterior"
+ },
+ {
+  "code": 4720,
+  "desc":"Ornamental Iron"
+ },
+ {
+  "code": 4740,
+  "desc":"Specialty Ext Finished"
+ },
+ {
+  "code": 4800,
+  "desc":"Garage Door"
+ },
+ {
+  "code": 5000,
+  "desc":"Plumbing Slab Labor"
+ },
+ {
+  "code": 5020,
+  "desc":"Plumbing Rough Labor"
+ },
+ {
+  "code": 5050,
+  "desc":"Plumbing Trim Material"
+ },
+ {
+  "code": 5060,
+  "desc":"Plumbing Trim Labor"
+ },
+ {
+  "code": 5100,
+  "desc":"HVAC Rough"
+ },
+ {
+  "code": 5150,
+  "desc":"HVAC Trim"
+ },
+ {
+  "code": 5200,
+  "desc":"Electrical Rough Mat."
+ },
+ {
+  "code": 5210,
+  "desc":"Electrical Rough Labor"
+ },
+ {
+  "code": 5250,
+  "desc":"Lighting Material"
+ },
+ {
+  "code": 5255,
+  "desc":"Appliances"
+ },
+ {
+  "code": 5260,
+  "desc":"Electrical Trim Labor"
+ },
+ {
+  "code": 5300,
+  "desc":"Security"
+ },
+ {
+  "code": 5400,
+  "desc":"Specialty Mechanicals"
+ },
+ {
+  "code": 5600,
+  "desc":"Fireplace"
+ },
+ {
+  "code": 5800,
+  "desc":"Insulation"
+ },
+ {
+  "code": 5900,
+  "desc":"Testing-bldg envelope"
+ },
+ {
+  "code": 6000,
+  "desc":"Drywall Material"
+ },
+ {
+  "code": 6010,
+  "desc":"Drywall Labor"
+ },
+ {
+  "code": 6100,
+  "desc":"Interior Trim Material"
+ },
+ {
+  "code": 6110,
+  "desc":"Interior Trim Labor"
+ },
+ {
+  "code": 6150,
+  "desc":"Fireplace Surround"
+ },
+ {
+  "code": 6200,
+  "desc":"Cabinets"
+ },
+ {
+  "code": 6250,
+  "desc":"Countertops"
+ },
+ {
+  "code": 6300,
+  "desc":"Painting"
+ },
+ {
+  "code": 6400,
+  "desc":"Ceramic Tile"
+ },
+ {
+  "code": 6420,
+  "desc":"Hardwood Flooring"
+ },
+ {
+  "code": 6430,
+  "desc":"Carpet"
+ },
+ {
+  "code": 6440,
+  "desc":"Vinyl Flooring"
+ },
+ {
+  "code": 6700,
+  "desc":"Lockout Material"
+ },
+ {
+  "code": 6710,
+  "desc":"Lockout Labor"
+ },
+ {
+  "code": 6720,
+  "desc":"Punch-out Material"
+ },
+ {
+  "code": 6730,
+  "desc":"Punch-out Labor"
+ },
+ {
+  "code": 6740,
+  "desc":"Shower Doors & Mirrors"
+ },
+ {
+  "code": 6750,
+  "desc":"Shelving"
+ },
+ {
+  "code": 6800,
+  "desc":"Specialty Int Finished"
+ },
+ {
+  "code": 6900,
+  "desc":"Cleaning"
+ },
+ {
+  "code": 7000,
+  "desc":"Trash Removal"
+ },
+ {
+  "code": 7050,
+  "desc":"Site Clean-Up"
+ },
+ {
+  "code": 7100,
+  "desc":"Final Grade"
+ },
+ {
+  "code": 7200,
+  "desc":"Driveway Materials"
+ },
+ {
+  "code": 7210,
+  "desc":"Driveway Labor"
+ },
+ {
+  "code": 7500,
+  "desc":"Landscape Material"
+ },
+ {
+  "code": 7520,
+  "desc":"Mailbox"
+ },
+ {
+  "code": 7530,
+  "desc":"Pressure Washing"
+ },
+ {
+  "code": 7550,
+  "desc":"Landscape Labor & Irrigation"
+ },
+ {
+  "code": 7560,
+  "desc":"Termite Protection"
+ },
+ {
+  "code": 7580,
+  "desc":"Fence"
+ },
+ {
+  "code": 7590,
+  "desc":"Pool"
+ },
+ {
+  "code": 7700,
+  "desc":"Specialty Finishes"
+ },
+ {
+  "code": 7800,
+  "desc":"Portable Toilet"
+ },
+ {
+  "code": 8100,
+  "desc":"Contingency"
+ },
+ {
+  "code": 8150,
+  "desc":"Property Tax"
+ },
+ {
+  "code": 8200,
+  "desc":"Contract Extras"
+ },
+ {
+  "code": 8910,
+  "desc":"Acquisitions Costs"
+ },
+ {
+  "code": 8915,
+  "desc":"Due Diligence"
+ },
+ {
+  "code": 8920,
+  "desc":"Professional Services",
+  "FIELD3":" Legal & Bond Fees"
+ },
+ {
+  "code": 8925,
+  "desc":"Appraisals"
+ },
+ {
+  "code": 8930,
+  "desc":"Marketing"
+ },
+ {
+  "code": 8935,
+  "desc":"Surveying - Cnst Staking"
+ },
+ {
+  "code": 8940,
+  "desc":"Closing Cost @ Land Closing"
+ },
+ {
+  "code": 8950,
+  "desc":"Commissions @ Land Closing"
+ },
+ {
+  "code": 8999,
+  "desc":"Repairs"
+ },
+ {
+  "code": 9000,
+  "desc":"Gen Hood Allocation"
+ },
+ {
+  "code": 8142,
+  "desc":"Int & Finance Fees - Lot"
+ },
+ {
+  "code": 8500,
+  "desc":"Land Costs - @ lot side"
+ },
+ {
+  "code": 8550,
+  "desc":"Sales Commissions - Lot"
+ },
+ {
+  "code": 8580,
+  "desc":"Closing/Handling Fees - Lot"
+ },
+ {
+  "code": 8900,
+  "desc":"Real Estate Purchase"
+ }
+]

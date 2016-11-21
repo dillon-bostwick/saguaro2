@@ -1,0 +1,58 @@
+<table class="table table-hover">
+	<thead>
+			<tr>
+				<th colspan="2">Name</th>
+				<th>Create new?</th>
+				<th>Override pipeline?</th>
+				<th>Admin?</th>
+				<th>Group</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in $ctrl.Users | orderBy: 'lastName' | orderBy: 'firstName'">
+				<td>
+					<p>{{user.firstName}}</p>
+				</td>
+
+				<td>
+					<p>
+						<b>{{user.lastName}}</b>
+						{{user._id === $ctrl.CurrentUser._id ? '(you)' : ''}}
+					</p>
+				</td>
+
+				<td>
+					<input type="checkbox" 
+				  		   ng-model="user.canCreate"
+				  		   ng-disabled="user.isAdmin">
+				</td>
+
+				<td>
+					<input type="checkbox"
+						   ng-model="user.canOverride"
+						   ng-disabled="user.isAdmin">
+				</td>
+
+				<td>
+					<input type="checkbox"
+						   ng-model="user.isAdmin"
+						   ng-disabled="user._id === $ctrl.CurrentUser._id"
+						   ng-click="$ctrl.makeAdmin(user)">
+				</td>
+
+				<td>
+					<select ng-model="user._group"
+							ng-options="group._id
+								as group.name
+								for group
+								in $ctrl.Groups | orderBy: 'name'">
+					</select>
+				</td>
+			</tr>
+		</tbody>
+</table>
+
+<button class="btn btn-primary btn-lg"
+		ng-click="$ctrl.submitUserChange()">
+	Submit changes
+</button>

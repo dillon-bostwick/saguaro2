@@ -1,0 +1,78 @@
+<table class="table table-hover">
+	<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Members</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="group in $ctrl.Groups"
+				ng-class="$ctrl.getUserNamesForGroup(group).length == 0 ? 'danger' : ''">
+				<td>{{$index + 1}}</td>
+				<td><b>{{group.name}}</b></td>
+				<td>{{$ctrl.getUserNamesForGroup(group).join(', ') || '--- Must add members ---'}}</td>
+
+				<td valign="middle">
+						<button class="btn btn-seconday btn-sm"
+								ng-disabled="$index === 0"
+								ng-click="$ctrl.Groups[$index] = $ctrl.Groups.splice($index - 1, 1, $ctrl.Groups[$index])[0]">
+							&uarr;
+						</button>
+
+						<button class="btn btn-seconday btn-sm"
+								ng-disabled="$index === $ctrl.Groups.length - 1"
+							    ng-click="$ctrl.Groups[$index] = $ctrl.Groups.splice($index + 1, 1, $ctrl.Groups[$index])[0]">
+							&darr;
+						</button>
+
+						<button uib-btn-checkbox
+								type="button"
+								class="btn btn-seconday btn-sm"
+								ng-model="$ctrl.showDeleter[$index]"
+								ng-disabled="$ctrl.Groups.length === 1">
+							&times;
+						</button>
+					
+						<div horizontal 
+							uib-collapse="!$ctrl.showDeleter[$index]"
+							<button	class="btn btn-success btn-sm"
+									ng-click="$ctrl.showDeleter[$index] = false">
+								Nevermind
+							</button>
+
+							<button class="btn btn-danger btn-sm"
+									ng-click="$ctrl.deleteGroup(group, $index)">
+								Confirm
+							</button>
+						</div>
+				</td>
+			</tr>
+		</tbody>
+</table>
+
+<button uib-btn-checkbox
+		type="button"
+		class="btn btn-primary btn-sm"
+		ng-model="$ctrl.showAdder">
+	Add new group
+</button>
+
+
+<button class="btn btn-primary btn-lg"
+		ng-click="$ctrl.submitGroupChange()">
+	Submit changes
+</button>
+
+<div></div>
+
+<div uib-collapse="!$ctrl.showAdder" class="well well-lg">
+	<label>Group name:</label>
+	<input type='text' ng-model='$ctrl.newGroupName'>
+
+	<button class="btn btn-primary btn-sm"
+		ng-click="$ctrl.addNewGroup()">
+	Add
+</button>
+</div>

@@ -1,0 +1,13 @@
+<div ng-include="'navbar.partial.html'"></div>
+
+ <div>
+ 	<uib-accordion close-others="false">
+    	<div
+             ng-repeat="viewPanel in $ctrl.viewPanels"
+    	     ng-class="viewPanel.class"
+    		 heading="{{viewPanel.title}}">
+    		 
+    		<ng-include src="viewPanel.template"></div>
+    	</div>
+  	</uib-accordion>
+</div>

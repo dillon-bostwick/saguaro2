@@ -1,0 +1,51 @@
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#!/">
+        <img src="images/favicon.ico" class="fittedImg" alt="Logo">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li  ng-class="$ctrl.path === '#!/dashboard' ? 'active' : ''">
+          <a href="#!/dashboard">
+            Dashboard
+          </a>
+        </li>
+
+        <li  ng-class="$ctrl.path === '#!/invoices/new' ? 'active' : ''">
+          <a href="#!/invoices/new">
+            New invoice
+          </a>
+        </li>
+
+        <li  ng-class="$ctrl.path === '#!/settings' ? 'active' : ''">
+          <a href="#!/settings">
+            Settings
+          </a>
+        </li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a>Logged in as: {{$ctrl.CurrentUser.firstName}}</a></li>
+        <li><a href="/login">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!-- Alert bar -->
+<div uib-alert
+     ng-if="$ctrl.alertMessage"
+     class="alert-success"
+     close="$ctrl.alertMessage = ''">
+    {{$ctrl.alertMessage}}
+</div>
+
+<!-- Loader -->
+<div class="loader" ng-if="$ctrl.isLoading"></div>

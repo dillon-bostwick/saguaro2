@@ -1,0 +1,154 @@
+<div ng-include="'navbar.partial.html'"></div>
+
+<div class="row">
+	<div class="col-md-12 span12">
+		<h2 ng-if="$ctrl.isNew"><i>Create</i> an invoice</h2>
+		<h2 ng-if="$ctrl.canReview"><i>Review</i> an invoice</h2>
+		<h2 ng-if="!$ctrl.canEdit"><i>Read</i> an invoice</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<div class="well well-lg">
+			<div ng-include="file-viewer.partial.html"></div>
+		</div>
+	</div>
+
+	<div class="col-sm-6">
+		<!-- if bs-modfiable is true, form changes tracked with AIM -->
+		<form name="Form" bs-modifiable="{{$ctrl.canReview && $ctrl.enableAim}}" novalidate>
+				<div class="well well-lg">
+					<div ng-include="'components/invoice-detail/details.partial.html'"></div>
+				</div>
+
+				<div class="well well-lg">
+					<div ng-include="'components/invoice-detail/line-items.partial.html'"></div>
+				</div>
+		</form>
+	</div>
+</div>
+
+<!-- TODO: Make collapsable -->
+<div class="row">
+	<div class="well well-lg" ng-if="!$ctrl.isNew">
+		<div ng-include="'components/invoice-detail/history.partial.html'"></div>
+	</div>	
+</div>
+
+
+
+
+
+<div class="row">
+	<!-- if new, just leave a comment -->
+	<div ng-if="$ctrl.isNew" class="well well-lg">
+		<p>Leave a comment as before submitting:</p><br>
+		<textarea rows="4" cols="80" ng-model="$ctrl.Invoice.actions[0].comment"></textarea>
+	</div>
+
+	<!-- if the form was changed and it is not new, must explain all changes -->
+	<div ng-if="$ctrl.canReview && Form.modified" class="well well-lg">
+		<h3>Explain your changes:</h3>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Field</th>
+					<th>Leave a comment:</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="change in Form.modifiedModels">
+					<td>{{change.$name}}</td>
+
+					<td>
+						<textarea rows="4" cols="50" ng-model="$ctrl.changeComments[$index]"></textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div>
+			<button
+				ng-click="Form.reset()">
+				Reset all changes
+			</button>
+		</div>
+	</div>
+
+	<!-- submit button if new -->
+	<div ng-if="$ctrl.canEdit" class="well well-lg">
+		<div ng-if="$ctrl.canReview">
+			<p>Leave a general comment before submitting:</p>
+			<textarea rows="4" cols="80" ng-model="$ctrl.generalComment"></textarea>
+		</div>
+		
+		<div class="well">
+			<div ng-if="$ctrl.isNew || ($ctrl.canReview && $ctrl.CurrentUser._invoiceQueue.length > 1)">
+				{{$ctrl.isNew ? 'Add another?' : 'Review next invoice?'}}
+
+				<input
+					type="checkbox"
+					ng-model="$ctrl.addAnother">
+			</div>
+
+			<p ng-if="!($ctrl.isNew || ($ctrl.canReview && $ctrl.CurrentUser._invoiceQueue.length > 1))">
+				<b>This is the last invoice left in your queue!</b>
+			</p>
+		</div>
+
+		<button
+			uib-btn-checkbox
+			ng-if="$ctrl.canReview"
+			type="button"
+			class="btn btn-primary btn-lg btn-danger"
+			ng-model="$ctrl.hideDeleteConfirm">
+			Delete
+		</button>
+
+		<button
+			ng-if="$ctrl.canReview"
+			class="btn btn-primary btn-lg bt-info"
+			ng-click="$ctrl.hold()">
+			Hold
+		</button>
+
+		<button
+			class="btn btn-primary btn-lg btn-success"
+			ng-click="$ctrl.submit()">
+			{{$ctrl.isNew ? 'Submit' : 'Approve'}}
+		</button>
+
+		<div uib-collapse="$ctrl.hideDeleteConfirm" class="well well-lg">
+			<button
+				class="btn btn-primary btn-lg btn-danger"
+				ng-click="$ctrl.deleteInvoice()">
+				Delete forever
+			</button>
+
+			<button
+				class="btn btn-primary btn-lg btn-danger"
+				ng-click="alert(TODO)">
+				Send to archives
+			</button>
+		</div>
+	</div>
+
+	<a class="btn btn-primary btn-lg" href='/#!/dashboard'>
+	    Go back
+	</a>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

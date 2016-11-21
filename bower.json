@@ -1,0 +1,17 @@
+{
+  "name": "projectseguaro",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-route": "~1.5.x",
+    "angular-loader": "~1.5.x",
+    "html5-boilerplate": "^5.3.x",
+    "angular-animate": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-resource": "1.5.x",
+    "bootstrap": "3.3.x",
+    "jquery": "2.2.x",
+    "underscore": "latest",
+    "fontawesome": "latest"
+  }
+}
