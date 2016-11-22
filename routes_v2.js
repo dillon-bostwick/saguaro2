@@ -33,7 +33,7 @@ router.get('/auth/dropbox/callback', passport.authenticate('dropbox-oauth2', aut
  * TODO: Shouldn't always send 500 - sometimes its 4xx depending on what happened
  */
 router.use((err, req, res, next) => {
-	res.status(500).send(err)
+	return res.status(500).send(err);
 });
 
 /**
