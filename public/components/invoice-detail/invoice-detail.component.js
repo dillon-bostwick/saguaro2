@@ -12,12 +12,14 @@ angular.
             ////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////
 
+            // temporary (for testing);
             self.File = {
                 data: 'https://dl.dropboxusercontent.com/apitl/1/AAD7Q5u42FvrToUY8RdEBXLE8wCwRfAeY_N9lozKj8zzDEPii_zd7inY6DM6Mamn6vj1GKnJv6-gA2nEtqE1nThpSB0s4A21tp5xUJEaqJnKHom4jab8M8Gl3Ju7i7mEIsdOUnNMLlcVTq6Wj9EdeiuIG12-xWN5H2ig7u_UDX27rZMf2ENcnirYxGK_rbjNDhRDUpSJbhMPnKyc_28K9nctUgA7i9KvMRXYHLx3PVAjQQ',
                 type: 'application/pdf'
             }
 
             // External requests:
+            // 
             self.Vendors = api.crudResources.Vendor.query();
             self.Hoods = api.crudResources.Hood.query();
             self.Expenses = api.crudResources.Expense.query();
@@ -28,8 +30,12 @@ angular.
             });
 
             api.controls.getInvoice($routeParams.id).then((res) => {
-                self.Invoice = res.data;
+                self.Invoice = res.data.invoice;
+                self.canEdit = res.location.belongsToUser;
+                self.currentQueueName = res.location.isPersonal ? self.Current
             });
+
+            $q.all
 
             /////////////////////UI params/////////////////////
 
@@ -45,8 +51,6 @@ angular.
             self.openDate = false;  //Opens datepicker on icon click
             self.showAlert = true;
 
-            //
-            self.isLoading = false;
             self.alertMessage = $location.search().alert || '';
 
             self.datePickerOptions = {
@@ -56,45 +60,8 @@ angular.
                 startingDay: 1
             };
 
-            // Either Invoice is retrived from DB or it gets a starter template:
-            self.Invoice = {
-                    serviceDate: new Date,
-                    invNum: '',
-                    _vendor: '',
-                    lineItems: [],
-                    comment: '',
-                    actions: [{
-                        desc: 'CREATED',
-                        comment: '',
-                        date: new Date,
-                        _user: undefined // Wait for CurrentUser promise resolution to fill
-                    }],
-                    filePath: null
-                };
-
             ////////////////////////////////////////////////////////////////////
             //PROMISES
-
-            /* Note: self.isNew can be processed on page load because $routeParams 
-             * processes on page load. For self.canReview and self.canEdit, must
-             * wait for the CurrentUser to be fetched from the api (via a server
-             * round trip processing SID cookie). Note that the camelCased currentUser
-             * is different from the PascalCased self.CurrentUser. The former is
-             * the returned data from the promise, while the latter is used to
-             * bind to the view (which obviously Angular knows when to update).
-             */
-            // self.CurrentUser.$promise.then(function(currentUser) {
-            //     // Whether is in the current user's queue:
-            //     self.canReview = _.contains(currentUser._invoiceQueue, $routeParams.id);
-            //     // Whether it can be edited at all:
-            //     self.canEdit = self.isNew || self.canReview;
-            //     // See self.Invoice declaration for this:
-            //     if (self.isNew) {
-            //         self.Invoice.actions[0]._user = currentUser._id;
-            //     }
-
-            //     return currentUser;
-            // });
 
             //Set pristine after the invoice loads, so that AIM doesn't
             //recognize the invoice load from api is a Form change
