@@ -47,20 +47,22 @@ angular.
                 }
             ];
 
-            ////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////
 
             // External requests:
-            self.Vendors = api.crudResources.Vendor.query();
-            self.Hoods = api.crudResources.Hood.query();
-            self.Expenses = api.crudResources.Expense.query();
-            self.Activities = api.crudResources.Activity.query();
-            api.controls.getCurrentUser().then((res) => self.CurrentUser);
-            self.invList = api.controls.getOwnQueues();
+
+            api.controls.getCurrentUser().then((res) => {
+                self.CurrentUser = res.data;
+            });
+            
+            api.controls.getOwnQueues().then((res) => {
+                self.ownQueues = res.data;
+            });
 
             self.view = 'QUEUE'; //Must be one of [QUEUE, TEAM, ARCHIVE] - QUEUE by default
             self.currentSorter = self.SORTOPTIONS[0].value;
 
-            //Alerter based on query string
+            // Alerter based on query string
             self.alertMessage = $location.search().alert || '';
 
             ////////////////////////////////////////////////////////////////////
@@ -85,13 +87,15 @@ angular.
              * and a summary of all line items
              */
             self.getDetailStr = function(invoice) {
+
                 // Get lists of ids excluding empty strings
-                var hoods =   _.pluck(invoice.lineItems, '_hood').filter(Boolean);
+                var hoods =   _.pluck(invoice.lineItems, '_hood')
+                              .filter(Boolean);
+
                 var expenses = _.pluck(invoice.lineItems, '_expense').filter(Boolean);
 
-                // populate ids -> names /// TODO: populate on backend first
-                hoods = _.map(hoods, function(id) { return self.getElementById(id, 'shortHand', 'Hoods'); });
-                expenses = _.map(expenses, function(id) { return self.getNameById(id, 'Expenses'); });
+                hoods = _.pluck(hoods, 'shortHand');
+                expenses = _.pluck(expenses, 'name');
 
                 return  [
                             _.uniq(expenses).join(' | '),
@@ -102,35 +106,10 @@ angular.
                         || 'N/A';
             }
 
-            
-
             /* Given an invoice _id, redirect to the page for that invoice
              */
             self.redirectInvoiceDetail = function(id) {
                 $window.location.href = '/#!/invoices/' + id;
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //db getters
-
-            /* Given an id and a collection, return the name of that document
-             * 
-             * Warning: this is reproduced elsewhere (as of writing, in user-dashboard).
-             *  Consider moving to core!
-             */
-            self.getNameById = function(id, collection) {
-                var doc = _.findWhere(self[collection], { _id: id })
-                
-                return doc
-                    ?  doc.name
-                    || [doc.firstName, doc.lastName].join(' ')
-                    : null;
-            }
-
-            self.getElementById = function(id, element, collection) {
-                var doc = _.findWhere(self[collection], { _id: id })[element];
-                
-                return doc || null;
             }
 		}
     });

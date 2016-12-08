@@ -50,33 +50,37 @@
 	<div class="col-sm-2"></div>
 </div>
 
-<div class="col-sm-12">
-	<div class="well well-lg" >
-		<table class="table table-hover" ng-if="$ctrl.invList.length !== 0">
-			<thead>
-				<tr>
-					<th>Received date</th>
-					<th>Keyed date</th>
-					<th>Service date</th>
-					<th>Vendor</th>
-					<th>Details</th>
-					<th>Total</th>
-				</tr>
-			</thead>
-			
-			<tbody ng-repeat="invoice in $ctrl.invList | orderBy: $ctrl.currentSorter">
-				<tr ng-click="$ctrl.redirectInvoiceDetail(invoice._id)">
-					<td>{{invoice.actions[0].date | date : 'MMM d, y h:mm a'}}</td> <!-- last is always received -->
-					<td>{{invoice.actions[invoice.actions.length - 1].date | date : 'MMM d, y h:mm a'}}</td> <!-- 0 is always created -->
-					<td>{{invoice.serviceDate | date}}</td>
-					<td>{{$ctrl.getNameById(invoice._vendor, 'Vendors') || 'N/A'}}</td>
-					<td>{{$ctrl.getDetailStr(invoice)}}</td>
-					<td>{{(invoice.amount | currency) || 'Not entered'}}</td>
-				</tr>
-			</tbody>
-		</table>
+<div ng-repeat="(queueName, queue) in $ctrl.ownQueues">
+	<div class="col-sm-12">
+		<div class="well well-lg">
+			<h3>{{queueName}}</h3>
 
-		<h3 ng-if="$ctrl.invList.length === 0" class="span12">Your queue is empty!</h3>
+			<p ng-if="queue.length === 0">This queue is empty</p>
+
+			<table class="table table-hover" ng-if="queue.length !== 0">
+				<thead>
+					<tr>
+						<th>Received date</th>
+						<th>Keyed date</th>
+						<th>Service date</th>
+						<th>Vendor</th>
+						<th>Details</th>
+						<th>Total</th>
+					</tr>
+				</thead>	
+
+				<tbody ng-repeat="invoice in queue | orderBy: $ctrl.currentSorter">
+					<tr ng-click="$ctrl.redirectInvoiceDetail(invoice._id)">
+						<td>{{invoice.actions[0].date | date : 'MMM d, y h:mm a'}}</td> <!-- last is always received -->
+						<td>{{invoice.actions[invoice.actions.length - 1].date | date : 'MMM d, y h:mm a'}}</td> <!-- 0 is always created -->
+						<td>{{invoice.serviceDate | date}}</td>
+						<td>{{invoice._vendor.name}}</td>
+						<td>{{$ctrl.getDetailStr(invoice)}}</td>
+						<td>{{(invoice.amount | currency) || 'Not entered'}}</td>
+					</tr>
+				</tbody>	
+			</table>
+		</div>
 	</div>
 </div>
 

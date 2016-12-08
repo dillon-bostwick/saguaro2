@@ -22,7 +22,16 @@ angular.
             self.Hoods = api.crudResources.Hood.query();
             self.Expenses = api.crudResources.Expense.query();
             self.Activities = api.crudResources.Activity.query();
-            self.CurrentUser = api.controls.getCurrentUser();
+
+            api.controls.getCurrentUser().then((res) => {
+                self.CurrentUser = res.data;
+            });
+
+            api.controls.getInvoice($routeParams.id).then((res) => {
+                self.Invoice = res.data;
+            });
+
+            /////////////////////UI params/////////////////////
 
             //Used for adding new changes to Invoice.actions when it is being
             //edited:
@@ -39,9 +48,6 @@ angular.
             //
             self.isLoading = false;
             self.alertMessage = $location.search().alert || '';
-
-            // Whether the invoice is new:
-            self.isNew = $routeParams.id === 'new';
 
             self.datePickerOptions = {
                 disabled: [],
