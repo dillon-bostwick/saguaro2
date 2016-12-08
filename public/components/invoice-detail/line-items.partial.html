@@ -1,180 +1,180 @@
 <h3>Line Items:</h3>
 
-					<table class="table table-hover">
-						<!-- Headers -->
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Category</th>
-								<th>Hood</th>
-								<th>Lot</th>
-								<th>Activities</th>
-								<th>Amount</th>
-								<th>Description</th>
-							</tr>
-						</thead>
+<table class="table table-hover">
+	<!-- Headers -->
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Category</th>
+			<th>Hood</th>
+			<th>Lot</th>
+			<th>Activities</th>
+			<th>Amount</th>
+			<th>Description</th>
+		</tr>
+	</thead>
 
-						<!-- Each line item -->
-						<tbody>
-							<tr ng-repeat="lineItem in $ctrl.Invoice.lineItems">
-								<td><b>{{$index + 1}}</b></td>
+	<!-- Each line item -->
+	<tbody>
+		<tr ng-repeat="lineItem in $ctrl.Invoice.lineItems">
+			<td><b>{{$index + 1}}</b></td>
 
-								<!-- Switch the line item type if can edit -->
-								<td ng-if="$ctrl.canEdit" >
-									<div class="btn-group">
-										<label class="btn btn-primary"
-												name="Line Item #{{$index + 1}}: Type"
-												uib-btn-radio="'CIP'"
-												ng-model="lineItem.category"
-												ng-change="$ctrl.loadNewLineItem(lineItem)">
-											CIP
-										</label>
+			<!-- Switch the line item type if can edit -->
+			<td ng-if="$ctrl.canEdit" >
+				<div class="btn-group">
+					<label class="btn btn-primary"
+							name="Line Item #{{$index + 1}}: Type"
+							uib-btn-radio="'CIP'"
+							ng-model="lineItem.category"
+							ng-change="$ctrl.loadNewLineItem(lineItem)">
+						CIP
+					</label>
 
-										<label class="btn btn-primary"
-												name="Line Item #{{$index + 1}}: Type"
-												uib-btn-radio="'EXPENSE'"
-												ng-model="lineItem.category"
-												ng-change="$ctrl.loadNewLineItem(lineItem)">
-											Expense 
-										</label>
+					<label class="btn btn-primary"
+							name="Line Item #{{$index + 1}}: Type"
+							uib-btn-radio="'EXPENSE'"
+							ng-model="lineItem.category"
+							ng-change="$ctrl.loadNewLineItem(lineItem)">
+						Expense 
+					</label>
 
-										<label class="btn btn-primary"
-												name="Line Item #{{$index + 1}}: Type"
-												uib-btn-radio="'WARRANTY'"
-												ng-model="lineItem.category"
-												ng-change="$ctrl.loadNewLineItem(lineItem)">
-											Warranty
-										</label>
-									</div>
-								</td>
+					<label class="btn btn-primary"
+							name="Line Item #{{$index + 1}}: Type"
+							uib-btn-radio="'WARRANTY'"
+							ng-model="lineItem.category"
+							ng-change="$ctrl.loadNewLineItem(lineItem)">
+						Warranty
+					</label>
+				</div>
+			</td>
 
-								<!-- Expense -->
-								<td ng-if="lineItem.category === 'EXPENSE'" colspan="3">
-									<label>Expense:</label>
-									<select
-										name="Line Item #{{$index + 1}}: Expense"
-										ng-model="lineItem._expense"
-										ng-options="expense._id as expense.name for expense in $ctrl.Expenses"
-									></select>
-								</td>
+			<!-- Expense -->
+			<td ng-if="lineItem.category === 'EXPENSE'" colspan="3">
+				<label>Expense:</label>
+				<select
+					name="Line Item #{{$index + 1}}: Expense"
+					ng-model="lineItem._expense"
+					ng-options="expense._id as expense.name for expense in $ctrl.Expenses"
+				></select>
+			</td>
 
-								<!-- Hood -->
-								<td ng-if="lineItem.category !== 'EXPENSE'">
-									<select
-										name="Line Item #{{$index + 1}}: Hood"
-										ng-model = "lineItem._hood"
-										ng-options = "hood._id
-											as hood.name
-											for hood
-											in $ctrl.Hoods">
-									</select>
-								</td>
+			<!-- Hood -->
+			<td ng-if="lineItem.category !== 'EXPENSE'">
+				<select
+					name="Line Item #{{$index + 1}}: Hood"
+					ng-model = "lineItem._hood"
+					ng-options = "hood._id
+						as hood.name
+						for hood
+						in $ctrl.Hoods">
+				</select>
+			</td>
 
 
-								<!-- Lot -->
-								<td ng-if="lineItem.category !== 'EXPENSE'">
-									<select
-										name="Line Item #{{$index + 1}}: Lot"
-										ng-if = "lineItem.category !== 'EXPENSE' && lineItem._hood !== ''",
-										ng-model = "lineItem.subHood",
-										ng-options = "subHoodOption for subHoodOption in $ctrl.getSubHoodOptions(lineItem)",
-										ng-change = "lineItem._activities = [];">
-									</select>
-								</td>
+			<!-- Lot -->
+			<td ng-if="lineItem.category !== 'EXPENSE'">
+				<select
+					name="Line Item #{{$index + 1}}: Lot"
+					ng-if = "lineItem.category !== 'EXPENSE' && lineItem._hood !== ''",
+					ng-model = "lineItem.subHood",
+					ng-options = "subHoodOption for subHoodOption in $ctrl.getSubHoodOptions(lineItem)",
+					ng-change = "lineItem._activities = [];">
+				</select>
+			</td>
 
-								<!-- filler in case warranty -->
-								<td ng-if="lineItem.category === 'WARRANTY'"></td>
+			<!-- filler in case warranty -->
+			<td ng-if="lineItem.category === 'WARRANTY'"></td>
 
-								<!-- Activities -->
-								<td ng-if="lineItem.category === 'CIP'">
-									<!-- Existing -->
-									<div ng-if="lineItem.category === 'CIP' &&
-									            lineItem.subHood !== '' && lineItem.subHood != null">
-										<button 
-											class="btn btn-secondary btn-sm"
-											ng-click="$ctrl.addActivity(lineItem)">
-											Add Activity
-										</button>
+			<!-- Activities -->
+			<td ng-if="lineItem.category === 'CIP'">
+				<!-- Existing -->
+				<div ng-if="lineItem.category === 'CIP' &&
+				            lineItem.subHood !== '' && lineItem.subHood != null">
+					<button 
+						class="btn btn-secondary btn-sm"
+						ng-click="$ctrl.addActivity(lineItem)">
+						Add Activity
+					</button>
 
-										<!-- Existing activities -->
-										<div ng-repeat="_activity in lineItem._activities track by $index">
-										<!-- http://www.codelord.net/2014/05/10/understanding-angulars-magic-dont-bind-to-primitives/ -->
+					<!-- Existing activities -->
+					<div ng-repeat="_activity in lineItem._activities track by $index">
+					<!-- http://www.codelord.net/2014/05/10/understanding-angulars-magic-dont-bind-to-primitives/ -->
 
-											<!-- code-->
-											<select 
-												name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
-												ng-model="lineItem._activities[$index]"
-												ng-options="option._id 
-													as option.code 
-													for option
-													in $ctrl.getActivityOptions(lineItem, $index)">
-											</select>
+						<!-- code-->
+						<select 
+							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
+							ng-model="lineItem._activities[$index]"
+							ng-options="option._id 
+								as option.code 
+								for option
+								in $ctrl.getActivityOptions(lineItem, $index)">
+						</select>
 
-											<!-- desc -->					
-											<select
-												name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
-												ng-model="lineItem._activities[$index]"
-												ng-options="option._id
-													as option.desc
-													for option
-													in $ctrl.sortByDesc($ctrl.getActivityOptions(lineItem))">
-										</select>
+						<!-- desc -->					
+						<select
+							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
+							ng-model="lineItem._activities[$index]"
+							ng-options="option._id
+								as option.desc
+								for option
+								in $ctrl.sortByDesc($ctrl.getActivityOptions(lineItem))">
+					</select>
 
-											<button
-												class="btn btn-danger btn-sm"
-												ng-click="lineItem._activities.splice($index, 1);">
-												&times;
-											</button>
-										</div>
-									</div>
-								</td>
+						<button
+							class="btn btn-danger btn-sm"
+							ng-click="lineItem._activities.splice($index, 1);">
+							&times;
+						</button>
+					</div>
+				</div>
+			</td>
 
-								<!-- Amount -->
-								<td>
-									$<input
-										name="Line Item #{{$index + 1}}: Amount"
-										type="Text"
-										ng-model="lineItem.amount"
-										ng-change="$ctrl.updateAmount();" size="6"/>
+			<!-- Amount -->
+			<td>
+				$<input
+					name="Line Item #{{$index + 1}}: Amount"
+					type="Text"
+					ng-model="lineItem.amount"
+					ng-change="$ctrl.updateAmount();" size="6"/>
 
-									<button ng-click="$ctrl.evaluateAmount(lineItem)"
-											ng-if="lineItem.amount[1] === '+'">
-										Evaluate
-									</button>
-								</td>
+				<button ng-click="$ctrl.evaluateAmount(lineItem)"
+						ng-if="lineItem.amount[1] === '+'">
+					Evaluate
+				</button>
+			</td>
 
-								<td>
-									<input
-										name="Line Item #{{$index + 1}}: Description"
-										type="text"
-										ng-model="lineItem.desc"/>
-								</td>
+			<td>
+				<input
+					name="Line Item #{{$index + 1}}: Description"
+					type="text"
+					ng-model="lineItem.desc"/>
+			</td>
 
-								<!-- Delete button -->
-								<td>
-									<button
-										class="btn btn-danger btn-sm"
-										ng-disabled="$ctrl.Invoice.lineItems.length === 1"
-										ng-click="$ctrl.Invoice.lineItems.splice($index, 1);">
-										&times;
-									</button>
-								</td>
-							</tr>
+			<!-- Delete button -->
+			<td>
+				<button
+					class="btn btn-danger btn-sm"
+					ng-disabled="$ctrl.Invoice.lineItems.length === 1"
+					ng-click="$ctrl.Invoice.lineItems.splice($index, 1);">
+					&times;
+				</button>
+			</td>
+		</tr>
 
-							<!-- Adding a new line item -->
-							<tr ng-if="$ctrl.canEdit">
-								<td colspan="8">
-									<button class="btn btn-block btn-secondary"
-											ng-click="$ctrl.addLineItem()">
-										Add Line Item
-									</button>
-								</td>
-							</tr>
+		<!-- Adding a new line item -->
+		<tr ng-if="$ctrl.canEdit">
+			<td colspan="8">
+				<button class="btn btn-block btn-secondary"
+						ng-click="$ctrl.addLineItem()">
+					Add Line Item
+				</button>
+			</td>
+		</tr>
 
-							<!-- Extra line for total amount -->
-							<tr>
-								<td colspan="5" align="right"><b>Total:</b></td>
-								<td>{{($ctrl.Invoice.amount | currency) || 'Check line items'}}</td>
-							</tr>
-						</tbody>
-					</table>
+		<!-- Extra line for total amount -->
+		<tr>
+			<td colspan="5" align="right"><b>Total:</b></td>
+			<td>{{($ctrl.Invoice.amount | currency) || 'Check line items'}}</td>
+		</tr>
+	</tbody>
+</table>

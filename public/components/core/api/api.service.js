@@ -16,7 +16,8 @@ angular.
             'Vendor',
             'Activity',
             'Expense',
-            'Hood'
+            'Hood',
+            'User'
         ]
 
         //returns object with $resource for each model
