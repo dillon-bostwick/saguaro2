@@ -1,62 +1,63 @@
 <!-- submit button if new -->
-	<div ng-if="$ctrl.canEdit" class="well well-lg">
-		<div>
-			<p>Leave a general comment before submitting:</p>
-			<textarea rows="4" cols="80" ng-model="$ctrl.generalComment"></textarea>
-		</div>
-
-		<div ng-if="$ctrl.CurrentUser.canOverride">
-			<p>Would you like to override the default invoice pipeline and push this to a user's personal queue? (This is optional)</p>
-			
-			<input type="checkbox"
-				   ng-model="$ctrl.isOverride">
-
-
-
-		</div>
-		
-		<div>
-			<button
-				class="btn btn-primary btn-lg btn-success"
-				ng-click="$ctrl.submit(false)">
-				Submit
-			</button>
-
-			<button
-				ng-if="$ctrl.CurrentUser.canHold"
-				class="btn btn-primary btn-lg bt-info"
-				ng-click="$ctrl.submit(true)">
-				Hold
-			</button>
-
-			<button
-				uib-btn-checkbox
-				ng-if="$ctrl.CurrentUser.canArchive || $ctrl.CurrentUser.canDeletePerm"
-				type="button"
-				class="btn btn-primary btn-lg btn-danger"
-				ng-model="$ctrl.hideDeleteConfirm">
-				Delete
-			</button>
-
-			Then go to next?
-
-			<input type="checkbox"
-				   ng-model="$ctrl.addAnother">
-		</div>
-
-		<div uib-collapse="$ctrl.hideDeleteConfirm" class="well well-lg">
-			<button
-				class="btn btn-primary btn-lg btn-danger"
-				ng-if="$ctrl.CurrentUser.canDeletePerm"
-				ng-click="$ctrl.deleteInvoice(false)">
-				Delete forever
-			</button>
-
-			<button
-				class="btn btn-primary btn-lg btn-danger"
-				ng-if="$ctrl.CurrentUser.canArchive"
-				ng-click="$ctrl.archiveInvoice(true)">
-				Send to archives
-			</button>
-		</div>
+<div ng-if="$ctrl.canEdit" class="well well-lg">
+	<div>
+		<p>Leave a general comment before submitting:</p>
+		<textarea rows="4" cols="80" ng-model="$ctrl.generalComment"></textarea>
 	</div>
+
+	<div ng-if="$ctrl.CurrentUser.canOverride">
+		<input type="checkbox"
+			   ng-model="$ctrl.override"
+		>
+
+		<select
+			ng-model="$ctrl.override"
+			ng-options="user._id as [user.firstName, user.lastName].join(' ') for user in $ctrl.Users">
+		</select>
+	</div>
+	
+	<div>
+		<button
+			class="btn btn-primary btn-lg btn-success"
+			ng-click="$ctrl.submit(false)">
+			Submit
+		</button>
+
+		<button
+			ng-if="$ctrl.CurrentUser.canHold"
+			class="btn btn-primary btn-lg bt-info"
+			ng-click="$ctrl.submit(true)">
+			Hold
+		</button>
+
+		<button
+			uib-btn-checkbox
+			ng-if="$ctrl.CurrentUser.canArchive || $ctrl.CurrentUser.canDeletePerm"
+			type="button"
+			class="btn btn-primary btn-lg btn-danger"
+			ng-model="$ctrl.hideDeleteConfirm">
+			Delete
+		</button>
+
+		Then go to next?
+
+		<input type="checkbox"
+			   ng-model="$ctrl.addAnother">
+	</div>
+
+	<div uib-collapse="$ctrl.hideDeleteConfirm" class="well well-lg">
+		<button
+			class="btn btn-primary btn-lg btn-danger"
+			ng-if="$ctrl.CurrentUser.canDeletePerm"
+			ng-click="$ctrl.deleteInvoice(false)">
+			Delete forever
+		</button>
+
+		<button
+			class="btn btn-primary btn-lg btn-danger"
+			ng-if="$ctrl.CurrentUser.canArchive"
+			ng-click="$ctrl.archiveInvoice(true)">
+			Send to archives
+		</button>
+	</div>
+</div>

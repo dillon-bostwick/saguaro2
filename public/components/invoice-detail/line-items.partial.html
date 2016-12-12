@@ -20,29 +20,26 @@
 			<td><b>{{$index + 1}}</b></td>
 
 			<!-- Switch the line item type if can edit -->
-			<td ng-if="$ctrl.canEdit" >
+			<td ng-disabled="!$ctrl.CurrentUser.canChange.lineItem" >
 				<div class="btn-group">
 					<label class="btn btn-primary"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'CIP'"
-							ng-model="lineItem.category"
-							ng-change="$ctrl.loadNewLineItem(lineItem)">
+							ng-model="lineItem.category">
 						CIP
 					</label>
 
 					<label class="btn btn-primary"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'EXPENSE'"
-							ng-model="lineItem.category"
-							ng-change="$ctrl.loadNewLineItem(lineItem)">
+							ng-model="lineItem.category">
 						Expense 
 					</label>
 
 					<label class="btn btn-primary"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'WARRANTY'"
-							ng-model="lineItem.category"
-							ng-change="$ctrl.loadNewLineItem(lineItem)">
+							ng-model="lineItem.category">
 						Warranty
 					</label>
 				</div>
@@ -54,6 +51,7 @@
 				<select
 					name="Line Item #{{$index + 1}}: Expense"
 					ng-model="lineItem._expense"
+					ng-disabled = "!$ctrl.CurrentUser.canChange.expense"
 					ng-options="expense._id as expense.name for expense in $ctrl.Expenses"
 				></select>
 			</td>
@@ -61,8 +59,9 @@
 			<!-- Hood -->
 			<td ng-if="lineItem.category !== 'EXPENSE'">
 				<select
-					name="Line Item #{{$index + 1}}: Hood"
+					name = "Line Item #{{$index + 1}}: Hood"
 					ng-model = "lineItem._hood"
+					ng-disabled = "!$ctrl.CurrentUser.canChange.hoods"
 					ng-options = "hood._id
 						as hood.name
 						for hood
@@ -74,10 +73,11 @@
 			<!-- Lot -->
 			<td ng-if="lineItem.category !== 'EXPENSE'">
 				<select
-					name="Line Item #{{$index + 1}}: Lot"
-					ng-if = "lineItem.category !== 'EXPENSE' && lineItem._hood !== ''",
-					ng-model = "lineItem.subHood",
-					ng-options = "subHoodOption for subHoodOption in $ctrl.getSubHoodOptions(lineItem)",
+					name = "Line Item #{{$index + 1}}: Lot"
+					ng-if = "lineItem.category !== 'EXPENSE' && lineItem._hood !== ''"
+					ng-disabled = "!$ctrl.CurrentUser.canChange.lots"
+					ng-model = "lineItem.subHood"
+					ng-options = "subHoodOption for subHoodOption in $ctrl.getSubHoodOptions(lineItem)"
 					ng-change = "lineItem._activities = [];">
 				</select>
 			</td>
@@ -90,8 +90,10 @@
 				<!-- Existing -->
 				<div ng-if="lineItem.category === 'CIP' &&
 				            lineItem.subHood !== '' && lineItem.subHood != null">
+
 					<button 
 						class="btn btn-secondary btn-sm"
+						ng-if="$ctrl.CurrentUser.canChange.activities"
 						ng-click="$ctrl.addActivity(lineItem)">
 						Add Activity
 					</button>
@@ -103,6 +105,7 @@
 						<!-- code-->
 						<select 
 							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
+							ng-disabled="!$ctrl.CurrentUser.canChange.activities"
 							ng-model="lineItem._activities[$index]"
 							ng-options="option._id 
 								as option.code 
@@ -113,6 +116,7 @@
 						<!-- desc -->					
 						<select
 							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
+							ng-disabled="!$ctrl.CurrentUser.canChange.activities"
 							ng-model="lineItem._activities[$index]"
 							ng-options="option._id
 								as option.desc
@@ -122,6 +126,7 @@
 
 						<button
 							class="btn btn-danger btn-sm"
+							ng-if="$ctrl.CurrentUser.canChange.activities"
 							ng-click="lineItem._activities.splice($index, 1);">
 							&times;
 						</button>
@@ -135,10 +140,12 @@
 					name="Line Item #{{$index + 1}}: Amount"
 					type="Text"
 					ng-model="lineItem.amount"
-					ng-change="$ctrl.updateAmount();" size="6"/>
+					ng-change="$ctrl.updateAmount();"
+					ng-disabled="!$ctrl.CurrentUser.canChange.amount"
+					size="6"/>
 
 				<button ng-click="$ctrl.evaluateAmount(lineItem)"
-						ng-if="lineItem.amount[1] === '+'">
+						ng-if="$ctrl.isEvaluateable(lineItem.amount)">
 					Evaluate
 				</button>
 			</td>
@@ -154,7 +161,7 @@
 			<td>
 				<button
 					class="btn btn-danger btn-sm"
-					ng-disabled="$ctrl.Invoice.lineItems.length === 1"
+					ng-disabled="$ctrl.Invoice.lineItems.length === 1 || !$ctrl.CurrentUser.canChange.lineItem"
 					ng-click="$ctrl.Invoice.lineItems.splice($index, 1);">
 					&times;
 				</button>
@@ -162,7 +169,7 @@
 		</tr>
 
 		<!-- Adding a new line item -->
-		<tr ng-if="$ctrl.canEdit">
+		<tr ng-disabled="!$ctrl.CurrentUser.canChange.lineItem">
 			<td colspan="8">
 				<button class="btn btn-block btn-secondary"
 						ng-click="$ctrl.addLineItem()">

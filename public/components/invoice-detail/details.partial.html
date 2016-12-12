@@ -15,15 +15,15 @@
 				<p class="input-group">
 						<input
 							uib-datepicker-popup="MM/dd/yyyy"
-							ng-if="$ctrl.canEdit"
+							ng-disabled="!$ctrl.CurrentUser.canChange.serviceDate"
 							name="Service Date"
-  						type="text"
-  						class="form-control"
-  						ng-model="$ctrl.Invoice.serviceDate"
-  						is-open="$ctrl.openDate"
-  						datepicker-options="$ctrl.datePickerOptions"
-  						close-text="Close"
-  						size="5"/>
+	  						type="text"
+	  						class="form-control"
+	  						ng-model="$ctrl.Invoice.serviceDate"
+	  						is-open="$ctrl.openDate"
+	  						datepicker-options="$ctrl.datePickerOptions"
+	  						close-text="Close"
+	  						size="5"/>
 
 					 	<span class="input-group-btn">
 						<button
@@ -41,7 +41,7 @@
 			<!-- TODO: Doesn't filter based of active - always show all -->
 			<td>
 				<select
-					ng-if="$ctrl.canEdit"
+					ng-disabled="!$ctrl.CurrentUser.canChange.vendor"
 					name="Vendor"
 					ng-model="$ctrl.Invoice._vendor"
 					ng-options="vendor._id
@@ -54,7 +54,7 @@
 			<!-- invoice id -->
 			<td>
 				<input
-					ng-if="$ctrl.canEdit"
+					ng-disabled="!CurrentUser.canChange.invNum"
 					name="Invoice #"
 					type="text"
 					ng-model="$ctrl.Invoice.invNum"/>

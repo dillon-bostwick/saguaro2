@@ -11,8 +11,7 @@ angular.
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////
-            ///
-            ///// addLineItem doesn't belong here but it is used below
+            ///// addLineItem doesn't really belong here but it is used below
 
             /* Pushes a new lineItem to self.lineItems.
              * Note: it is a angular getter/setter, hence must check args
@@ -35,14 +34,6 @@ angular.
                 data: 'https://dl.dropboxusercontent.com/apitl/1/AAD7Q5u42FvrToUY8RdEBXLE8wCwRfAeY_N9lozKj8zzDEPii_zd7inY6DM6Mamn6vj1GKnJv6-gA2nEtqE1nThpSB0s4A21tp5xUJEaqJnKHom4jab8M8Gl3Ju7i7mEIsdOUnNMLlcVTq6Wj9EdeiuIG12-xWN5H2ig7u_UDX27rZMf2ENcnirYxGK_rbjNDhRDUpSJbhMPnKyc_28K9nctUgA7i9KvMRXYHLx3PVAjQQ',
                 type: 'application/pdf'
             }
-
-            // External requests:
-            
-            self.Vendors = api.crudResources.Vendor.query();
-            self.Hoods = api.crudResources.Hood.query();
-            self.Expenses = api.crudResources.Expense.query();
-            self.Activities = api.crudResources.Activity.query();
-            self.Users = api.crudResources.User.query();
 
             /////////////////////UI params/////////////////////
 
@@ -68,39 +59,68 @@ angular.
                 startingDay: 1
             };
 
-            //Get CurrentUser and Invoice:
-
-            api.controls.getCurrentUser().then((res) => {
-                self.CurrentUser = res.data;
+            // External requests:
+            
+            self.Vendors = api.crudResources.Vendor.query();
+            self.Hoods = api.crudResources.Hood.query();
+            self.Expenses = api.crudResources.Expense.query();
+            self.Activities = api.crudResources.Activity.query();
+            
+            api.crudResources.User.query().then((users) => {
+                console.log(users);
             });
+            
+            $q.all([
+                api.controls.getCurrentUser().then((res) => {
+                    self.CurrentUser = res.data;
+                },
+                (error) => {
+                    console.log(error);
 
-            api.controls.getInvoice($routeParams.id).then((res) => {
-                if (res.status !== 200) {
-                    alert(res.status);
-                    self.alertMessage = status;
+                    self.alertMessage = [error.status, error.data].join(': ');
+                }),
+
+                api.controls.getInvoice($routeParams.id).then((res) => {
+                    if (res.status !== 200) {
+                        alert(res.status);
+                        self.alertMessage = status;
+                    }
+
+                    self.Invoice = res.data.invoice;
+                    self.canEdit = res.data.location.belongsToUser;
+                    self.currentQueueName = res.data.location.isPersonal
+                                            ? 'Your own queue'
+                                            : res.data.location.currentGroupName;
+
+                    //UI resets after invoice is found:
+                    self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);
+                    self.enableAim = true;
+
+                    $scope.Form.$setPristine();
+
+                    if (_.isEmpty(self.Invoice.lineItems)) {
+                        self.addLineItem();
+                    }
+
+                    self.updateAmount();
+                },
+                (error) => {
+                    console.log(error);
+
+                    self.alertMessage = [error.status, error.data].join(': ');
+                })
+            ]).then(() => {
+                //If not canEdit, set all canChange to false (causing disabled in view)
+                if (!self.canEdit) {
+                    _.map(self.CurrentUser.canChange, (value) => {
+                        value = false;
+                    })
                 }
+            })
 
-                self.Invoice = res.data.invoice;
-                self.canEdit = res.data.location.belongsToUser;
-                self.currentQueueName = res.data.location.isPersonal
-                                        ? 'Your own queue'
-                                        : res.data.location.currentGroupName;
+            
 
-                //UI resets after invoice is found:
-                self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);
-                self.enableAim = true;
 
-                $scope.Form.$setPristine();
-
-                if (_.isEmpty(self.Invoice.lineItems)) {
-                    self.addLineItem();
-                }
-            },
-            (error) => {
-                console.log(error);
-
-                self.alertMessage = [error.status, error.data].join(': ');
-            });
 
             ////////////////////////////////////////////////////////////////////
             //FORM CTRL METHODS
@@ -211,9 +231,6 @@ angular.
             }
 
             /* Given an id and a collection, return the name of that document
-             * 
-             * Warning: this is reproduced elsewhere (as of writing, in user-dashboard).
-             *  Consider moving to core!
              */
             self.getNameById = (id, collection) => {
                 var doc = _.findWhere(self[collection], { _id: id })
@@ -224,6 +241,17 @@ angular.
                     ? doc.name
                     || [doc.firstName, doc.lastName].join(' ')
                     : null;
+            }
+
+            self.getElementById = function(id, element, collection) {
+                var doc = _.findWhere(self[collection], { _id: id });
+
+                return doc ? doc[element] : null;
+            }
+
+            self.isEvaluatable = (str) => {
+                return false;
+                //TODO: return whether or not str contains +, -, *, /
             }
 
             function getFileType(path) {

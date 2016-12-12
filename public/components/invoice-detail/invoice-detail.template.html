@@ -23,13 +23,12 @@
 
 <!-- TODO: Make collapsable -->
 <div class="row">
-	<div class="well well-lg" ng-if="!$ctrl.isNew">
+	<div class="well well-lg">
 		<div ng-include="'components/invoice-detail/history.partial.html'"></div>
 	</div>	
 </div>
 
 <div class="row">
-
 	<!-- if the form was changed and it is not new, must explain all changes -->
 	<div ng-if="$ctrl.canEdit && Form.modified" class="well well-lg">
 		<h3>Explain your changes:</h3>
