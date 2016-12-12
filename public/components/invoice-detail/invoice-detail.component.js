@@ -4,7 +4,7 @@ angular.
     module('invoiceDetail', ['ngInputModified', 'ui.bootstrap', 'ng-file-model']).
     component('invoiceDetail', {
         templateUrl: 'components/invoice-detail/invoice-detail.template.html',
-        controller: function InvoiceDetailController(api, $q, $routeParams, $window, $filter, $scope, $location) {
+        controller: function InvoiceDetailController(api, $q, $routeParams, $window, $filter, $scope, $location, $httpParamSerializer) {
             var self = this;
             window.ctrl = self;
             self.path = $window.location.hash
@@ -65,11 +65,22 @@ angular.
             self.Hoods = api.crudResources.Hood.query();
             self.Expenses = api.crudResources.Expense.query();
             self.Activities = api.crudResources.Activity.query();
-            
-            api.crudResources.User.query().then((users) => {
-                console.log(users);
+            self.Users = api.crudResources.User.query();
+
+            self.Users.$promise.then(() => {
+                self.overrideOptions = [{
+                    name: 'Do Not Override (default)',
+                    id: null
+                }];
+
+                _.each(self.Users, (user) => {
+                    self.overrideOptions.push({
+                        name: [user.firstName, user.lastName].join(' '),
+                        id: user._id
+                    });
+                });
             });
-            
+
             $q.all([
                 api.controls.getCurrentUser().then((res) => {
                     self.CurrentUser = res.data;
@@ -217,12 +228,44 @@ angular.
                 }, 0);
             }
 
+            console.log($httpParamSerializer({
+                hello: 'world'
+            }));
+
             ////////////////////////////////////////////////////////////////////
 
             self.submit = (isHold) => {
-                api.controls.submitInvoice(self.invoice, isHold, self.override)
+                api.controls.submitInvoice(self.Invoice, isHold, self.override)
                 .then((res) => {
-                    console.log(res);
+                    if (self.addAnother) {
+                        findNextId(self.Invoice._id, (err, nextId) => {
+                            if (err) {
+                                console.log(err);
+                            } else if (_.isNull(nextId)) {
+                                $window.location.href = '/#!/dashboard'; // should show success and no more invoices
+                            } else {
+                                $window.location.href = '/#!/invoices/' + nextId; // should show success
+                            }
+                        });
+                    } else {
+                        $window.location.href = '/#!/dashboard'; // should show success
+                    }
+                },
+                (error) => {
+                    console.log(error);
+
+                    switch(error.status) {
+                        case 422: {
+                            self.alertMessage = { error: error.data }
+                            break;
+                        }
+
+                        // add more cases later if needed
+
+                        default: {
+                            self.alertMessage = { error: [error.status, error.data].join(': ') }
+                        }
+                    }
                 });
             }
 
@@ -259,6 +302,34 @@ angular.
                 var extension = re.exec(path)[1];
 
                 return extension === 'pdf' ? 'application/pdf' : 'image/' + extension;
+            }
+
+            /**
+             * callback(err, nextId) where nextId===null means there are none else left in queue
+             */
+            function findNextId(currentInvId, callback) {
+                api.controls.getOwnQueues().then((ownQueues) => {
+                    for (var i in ownQueues.data) {
+                        var queue = ownQueues.data[i];
+
+                        for (var j = 0; j < queue.length; j++) {
+                            var invoice = queue[j];
+
+                            console.log(invoice._id, currentInvId);
+
+                            if (invoice._id !== currentInvId) {
+                                console.log(invoice._id, currentInvId);
+
+                                return callback(null, invoice._id);
+                            }
+                        }
+                    }
+
+                    return callback(null, null);
+                },
+                (error) => {
+                    return callback(error, null);
+                });
             }
         } // end controller
     }); // end component

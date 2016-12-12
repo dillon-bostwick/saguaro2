@@ -6,13 +6,11 @@
 	</div>
 
 	<div ng-if="$ctrl.CurrentUser.canOverride">
-		<input type="checkbox"
-			   ng-model="$ctrl.override"
-		>
+		<p>Would you like to override to a user's personal queue? (optional)</p>
 
 		<select
 			ng-model="$ctrl.override"
-			ng-options="user._id as [user.firstName, user.lastName].join(' ') for user in $ctrl.Users">
+			ng-options="option.id as option.name for option in $ctrl.overrideOptions">
 		</select>
 	</div>
 	
