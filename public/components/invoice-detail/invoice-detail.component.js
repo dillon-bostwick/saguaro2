@@ -29,12 +29,6 @@ angular.
                 });
             }
 
-            // temporary (for testing);
-            self.File = {
-                data: 'https://dl.dropboxusercontent.com/apitl/1/AAD7Q5u42FvrToUY8RdEBXLE8wCwRfAeY_N9lozKj8zzDEPii_zd7inY6DM6Mamn6vj1GKnJv6-gA2nEtqE1nThpSB0s4A21tp5xUJEaqJnKHom4jab8M8Gl3Ju7i7mEIsdOUnNMLlcVTq6Wj9EdeiuIG12-xWN5H2ig7u_UDX27rZMf2ENcnirYxGK_rbjNDhRDUpSJbhMPnKyc_28K9nctUgA7i9KvMRXYHLx3PVAjQQ',
-                type: 'application/pdf'
-            }
-
             /////////////////////UI params/////////////////////
 
             //Used for adding new changes to Invoice.actions when it is being
@@ -50,7 +44,7 @@ angular.
             self.showAlert = true;
             self.override = null;
 
-            self.alertMessage = $location.search().alert || '';
+            self.alertMessage = $location.search() || '';
 
             self.datePickerOptions = {
                 disabled: [],
@@ -99,8 +93,9 @@ angular.
 
                     self.Invoice = res.data.invoice;
                     self.canEdit = res.data.location.belongsToUser;
+                    self.file = res.data.file;
                     self.currentQueueName = res.data.location.isPersonal
-                                            ? 'Your own queue'
+                                            ? 'your own queue'
                                             : res.data.location.currentGroupName;
 
                     //UI resets after invoice is found:
@@ -123,8 +118,8 @@ angular.
             ]).then(() => {
                 //If not canEdit, set all canChange to false (causing disabled in view)
                 if (!self.canEdit) {
-                    _.map(self.CurrentUser.canChange, (value) => {
-                        value = false;
+                    self.CurrentUser.canChange = _.map(self.CurrentUser.canChange, (value) => {
+                        return false;
                     })
                 }
             })
@@ -228,10 +223,6 @@ angular.
                 }, 0);
             }
 
-            console.log($httpParamSerializer({
-                hello: 'world'
-            }));
-
             ////////////////////////////////////////////////////////////////////
 
             self.submit = (isHold) => {
@@ -242,13 +233,22 @@ angular.
                             if (err) {
                                 console.log(err);
                             } else if (_.isNull(nextId)) {
-                                $window.location.href = '/#!/dashboard'; // should show success and no more invoices
+                                $window.location.href = '/#!/dashboard?' + $httpParamSerializer({
+                                    alert: 'Successfully submitted invoice ' + self.Invoice.invNum + '. No more invoices left!',
+                                    type: 'success'
+                                });
                             } else {
-                                $window.location.href = '/#!/invoices/' + nextId; // should show success
+                                $window.location.href = '/#!/invoices/' + nextId + '?' + $httpParamSerializer({
+                                    alert: 'Successfully submitted invoice ' + self.Invoice.invNum,
+                                    type: 'success'
+                                });
                             }
                         });
                     } else {
-                        $window.location.href = '/#!/dashboard'; // should show success
+                        $window.location.href = '/#!/dashboard' + $httpParamSerializer({
+                            alert: 'Successfully submitted invoice ' + self.Invoice.invNum,
+                            type: 'success'
+                        });
                     }
                 },
                 (error) => {
@@ -256,14 +256,14 @@ angular.
 
                     switch(error.status) {
                         case 422: {
-                            self.alertMessage = { error: error.data }
+                            self.alertMessage = { alert: error.data, type: 'error' }
                             break;
                         }
 
                         // add more cases later if needed
 
                         default: {
-                            self.alertMessage = { error: [error.status, error.data].join(': ') }
+                            self.alertMessage = { alert: [error.status, error.data].join(': '), type: 'error' }
                         }
                     }
                 });

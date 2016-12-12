@@ -1,3 +1,20 @@
+
+<!-- Alert message -->
+<div ng-if="$ctrl.alertMessage">
+  <div class="alert alert-success"
+       ng-if="$ctrl.alertMessage.type === 'success'">
+
+       {{$ctrl.alertMessage.alert}}
+  </div>
+
+  <div class="alert alert-danger"
+       ng-if="$ctrl.alertMessage.type === 'error'">
+
+       {{$ctrl.alertMessage.alert}}
+  </div>
+
+</div>
+
 <!-- Navbar -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -13,7 +30,7 @@
       <ul class="nav navbar-nav">
         <li  ng-class="$ctrl.path === '#!/dashboard' ? 'active' : ''">
           <a href="#!/dashboard">
-            Dashboard
+            Go to Dashboard
           </a>
         </li>
       </ul>
@@ -22,7 +39,3 @@
 </nav>
 
 
-<!-- TODO: Make this the original Angular Component that it used to be before it disappeared -->
-<div>
-  <p>{{$ctrl.alertMessage}}</p>
-</div>

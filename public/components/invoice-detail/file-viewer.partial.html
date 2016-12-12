@@ -1,38 +1,21 @@
-<div class="well well-lg"> 
+<!-- <div class="well well-lg"> 
 	<img ng-if="$ctrl.File && $ctrl.File.type[0] === 'i'"
 		 ng-src="{{$ctrl.File.data}}"
 		 alt="{{$ctrl.File.name}}">
+</div> -->
 
- 	<!-- <object ng-if="$ctrl.File && $ctrl.File.type === 'application/pdf'"
- 			ng-attr-data="{{$ctrl.File.data}}"
- 			type="application/pdf">
- 				Trouble rendering pdf
-	</object> -->
-
-	<embed
- 			type="application/pdf"
- 			src="$ctrl.File.data"
- 			width="100%" height="100%"
- 			pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
-
-</div>
-
-
-<!-- saving for later: a how-to for pdfs -->
-
-<!-- <script src="bower_components/pdfjs/build/pdf.js"></script>
-
+<script src="bower_components/pdfjs/build/pdf.js"></script>
 
 <script>
 	PDFJS.workerSrc = '/bower_components/pdfjs/build/pdf.worker.js';
 
-	PDFJS.getDocument('https://dl.dropboxusercontent.com/apitl/1/AAD7Q5u42FvrToUY8RdEBXLE8wCwRfAeY_N9lozKj8zzDEPii_zd7inY6DM6Mamn6vj1GKnJv6-gA2nEtqE1nThpSB0s4A21tp5xUJEaqJnKHom4jab8M8Gl3Ju7i7mEIsdOUnNMLlcVTq6Wj9EdeiuIG12-xWN5H2ig7u_UDX27rZMf2ENcnirYxGK_rbjNDhRDUpSJbhMPnKyc_28K9nctUgA7i9KvMRXYHLx3PVAjQQ').then(function(pdf) {
+	PDFJS.getDocument('https://dl.dropboxusercontent.com/apitl/1/AAAYu8z2aLErYPR3nFEHwcZE4kBKuD4wW2GaN_gQXtYIWNKmhe9n_7kjj0KRG4U0zPHpK412Slit5y-ipwG1uOpPTYl1oez4cWByfM5MGAS8pwS4uj7WS6YdYCDRDOxRW7KslbZTaFR4QhaZUw2JQUDaSOLHZVYob_39SS74WzB3_v9XUoupHyfnRoS2x8J05JVlLcyctDm7WlZBbSdKNkjMqfVUnb1JchzRNumJD3t5yK2soT4iDlA-uTbT8NJ0zuo').then(function(pdf) {
 		pdf.getPage(1).then(function(page) {
 			var scale = 1.5;
 			var viewport = page.getViewport(scale);
-
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
+
 			canvas.height = viewport.height;
 			canvas.width = viewport.width;
 
@@ -40,12 +23,13 @@
 			  canvasContext: context,
 			  viewport: viewport
 			};
+
 			page.render(renderContext);
 		});
 	});
 </script>
 
 
-<body>
+<div>
   <canvas id="canvas" style="border:1px solid black;"/>
-</body> -->
+</div>

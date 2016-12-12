@@ -61,7 +61,6 @@
 				<thead>
 					<tr>
 						<th>Received date</th>
-						<th>Keyed date</th>
 						<th>Service date</th>
 						<th>Vendor</th>
 						<th>Details</th>
@@ -72,7 +71,6 @@
 				<tbody ng-repeat="invoice in queue | orderBy: $ctrl.currentSorter">
 					<tr ng-click="$ctrl.redirectInvoiceDetail(invoice._id)">
 						<td>{{invoice.actions[0].date | date : 'MMM d, y h:mm a'}}</td> <!-- last is always received -->
-						<td>{{invoice.actions[invoice.actions.length - 1].date | date : 'MMM d, y h:mm a'}}</td> <!-- 0 is always created -->
 						<td>{{invoice.serviceDate | date}}</td>
 						<td>{{invoice._vendor.name}}</td>
 						<td>{{$ctrl.getDetailStr(invoice)}}</td>

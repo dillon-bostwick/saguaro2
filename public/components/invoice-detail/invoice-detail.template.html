@@ -1,9 +1,17 @@
 <div ng-include="'navbar.partial.html'"></div>
 
+<h4 class="span12" ng-if="!$ctrl.canEdit">
+		This invoice is read-only, because it is not in your queue
+</h4>
+
+<h4 class="span12" ng-if="$ctrl.canEdit">
+		This invoice currently belongs to {{$ctrl.currentQueueName}}
+</h4>
+
 <div class="row">
 	<div class="col-sm-6">
 		<div class="well well-lg">
-			<div ng-include="file-viewer.partial.html"></div>
+			<div ng-include="'components/invoice-detail/file-viewer.partial.html'"></div>
 		</div>
 	</div>
 
@@ -61,14 +69,11 @@
 	</div>
 
 	<div ng-if="$ctrl.canEdit">
-		<div ng-include="'components/invoice-detail/submit.partial.html'"
+		<div ng-include="'components/invoice-detail/submit.partial.html'"></div>
 	</div>
 </div>
 
-
-
-
-
+<div ng-include="'navbar.partial.html'"></div>
 
 
 
