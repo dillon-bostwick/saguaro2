@@ -3,6 +3,8 @@
  *
  * API has been completely revamped, v1 deprecated as of Oct 28 2016.
  *
+ * TODO: block sites that are not the login site if the user is not logged in
+ *
  */
 
 var express = require('express');
@@ -62,13 +64,15 @@ router.use((req, res, next) => {
     }
 });
 
-router.get('/currentuser', (req, res, next) => { res.send(req.user); }); // TODO: strip down some info, so only includes first and last names
+router.get('/currentuser', (req, res, next) => { res.send(req.user); }); // TODO: strip down some info, so that only includes first and last names
 router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);
 router.get('/refreshdropzone', Controllers.refreshDropzone);
 router.post('/submitinvoice', Controllers.submitInvoice);
 
-var crudableModels = [ 'Activity', 'Hood', 'Expense', 'Vendor' ]
+// Do "Crudables":
+
+var crudableModels = [ 'Activity', 'Hood', 'Expense', 'Vendor', 'User' ]
 
 _.each(models, (model) => {
     if (_.contains(crudableModels, model.modelName)) {

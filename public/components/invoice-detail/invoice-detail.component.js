@@ -87,7 +87,6 @@ angular.
                                         : res.data.location.currentGroupName;
 
                 //UI resets after invoice is found:
-                
                 self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);
                 self.enableAim = true;
 
