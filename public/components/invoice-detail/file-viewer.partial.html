@@ -1,35 +1,8 @@
-<!-- <div class="well well-lg"> 
-	<img ng-if="$ctrl.File && $ctrl.File.type[0] === 'i'"
-		 ng-src="{{$ctrl.File.data}}"
-		 alt="{{$ctrl.File.name}}">
-</div> -->
+<div ng-if="$ctrl.file.img"> 
+	<img ng-src="{{$ctrl.file.link}}"
+		 alt="{{$ctrl.file.name}}">
+</div>
 
-<script src="bower_components/pdfjs/build/pdf.js"></script>
-
-<script>
-	PDFJS.workerSrc = '/bower_components/pdfjs/build/pdf.worker.js';
-
-	PDFJS.getDocument('https://dl.dropboxusercontent.com/apitl/1/AAAYu8z2aLErYPR3nFEHwcZE4kBKuD4wW2GaN_gQXtYIWNKmhe9n_7kjj0KRG4U0zPHpK412Slit5y-ipwG1uOpPTYl1oez4cWByfM5MGAS8pwS4uj7WS6YdYCDRDOxRW7KslbZTaFR4QhaZUw2JQUDaSOLHZVYob_39SS74WzB3_v9XUoupHyfnRoS2x8J05JVlLcyctDm7WlZBbSdKNkjMqfVUnb1JchzRNumJD3t5yK2soT4iDlA-uTbT8NJ0zuo').then(function(pdf) {
-		pdf.getPage(1).then(function(page) {
-			var scale = 1.5;
-			var viewport = page.getViewport(scale);
-			var canvas = document.getElementById('canvas');
-			var context = canvas.getContext('2d');
-
-			canvas.height = viewport.height;
-			canvas.width = viewport.width;
-
-			var renderContext = {
-			  canvasContext: context,
-			  viewport: viewport
-			};
-
-			page.render(renderContext);
-		});
-	});
-</script>
-
-
-<div>
-  <canvas id="canvas" style="border:1px solid black;"/>
+<div ng-if="true">
+  <canvas id="pdfviewer" style="border:1px solid black;"/>
 </div>

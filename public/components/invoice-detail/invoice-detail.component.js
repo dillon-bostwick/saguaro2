@@ -8,6 +8,7 @@ angular.
             var self = this;
             window.ctrl = self;
             self.path = $window.location.hash
+            PDFJS.workerSrc = '/bower_components/pdfjs/build/pdf.worker.js';
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////
@@ -94,9 +95,12 @@ angular.
                     self.Invoice = res.data.invoice;
                     self.canEdit = res.data.location.belongsToUser;
                     self.file = res.data.file;
+                    self.file.img = false;
                     self.currentQueueName = res.data.location.isPersonal
                                             ? 'your own queue'
                                             : res.data.location.currentGroupName;
+
+                    self.loadFile();
 
                     //UI resets after invoice is found:
                     self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);
@@ -130,6 +134,52 @@ angular.
 
             ////////////////////////////////////////////////////////////////////
             //FORM CTRL METHODS
+            
+            /**
+             * Load file given specified self.file data
+             */
+            self.loadFile = () => {
+                if (!self.file) return;
+
+                //self.file.link = 'google.com'
+
+                //Try to load as a pdf
+                PDFJS.getDocument(self.file.link)
+                .then(function(pdf) { // it is a pdf
+                    self.file.pdf = pdf;
+                    self.file.currentPageNum = 1;
+
+                    self.loadPdfPage();
+                },
+                function(error) {
+                    var canvas = document.getElementById('pdfviewer');
+                    canvas.parentNode.removeChild(canvas);
+
+                    self.file.img = true;
+                });
+            }
+
+            /**
+             * This is async but there's no callback when finished
+             */
+            self.loadPdfPage = () => {
+                self.file.pdf.getPage(self.file.currentPageNum).then(function(page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport(scale);
+                    var canvas = document.getElementById('pdfviewer');
+                    var context = canvas.getContext('2d');
+
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    var renderContext = {
+                      canvasContext: context,
+                      viewport: viewport
+                    };
+
+                    page.render(renderContext);
+                });
+            }
 
             /* Given a lineItem, pushes an empty object literal to
              * the back of the _activities array of the lineItem
