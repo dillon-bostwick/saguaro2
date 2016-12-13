@@ -100,8 +100,6 @@ angular.
                                             ? 'your own queue'
                                             : res.data.location.currentGroupName;
 
-                    self.loadFile();
-
                     //UI resets after invoice is found:
                     self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);
                     self.enableAim = true;
@@ -112,6 +110,7 @@ angular.
                         self.addLineItem();
                     }
 
+                    self.loadFile();
                     self.updateAmount();
                 },
                 (error) => {
@@ -128,10 +127,6 @@ angular.
                 }
             })
 
-            
-
-
-
             ////////////////////////////////////////////////////////////////////
             //FORM CTRL METHODS
             
@@ -141,22 +136,24 @@ angular.
             self.loadFile = () => {
                 if (!self.file) return;
 
-                //self.file.link = 'google.com'
+                self.file.img = true;
 
                 //Try to load as a pdf
                 PDFJS.getDocument(self.file.link)
                 .then(function(pdf) { // it is a pdf
-                    self.file.pdf = pdf;
-                    self.file.currentPageNum = 1;
+                    $scope.$apply(function() {
+                        self.file.img = false;
+                        self.file.pdf = pdf;
+                        self.file.currentPageNum = 1;
 
-                    self.loadPdfPage();
+                        self.loadPdfPage();
+                    })
                 },
                 function(error) {
                     var canvas = document.getElementById('pdfviewer');
                     canvas.parentNode.removeChild(canvas);
-
-                    self.file.img = true;
                 });
+
             }
 
             /**
@@ -166,7 +163,7 @@ angular.
                 self.file.pdf.getPage(self.file.currentPageNum).then(function(page) {
                     var scale = 1.5;
                     var viewport = page.getViewport(scale);
-                    var canvas = document.getElementById('pdfviewer');
+                    var canvas = document.getElementById('pdfcanvas');
                     var context = canvas.getContext('2d');
 
                     canvas.height = viewport.height;

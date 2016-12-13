@@ -1,8 +1,17 @@
 <div ng-if="$ctrl.file.img"> 
-	<img ng-src="{{$ctrl.file.link}}"
-		 alt="{{$ctrl.file.name}}">
+	<img ng-src="{{$ctrl.file.link}}">
 </div>
 
-<div ng-if="true">
-  <canvas id="pdfviewer" style="border:1px solid black;"/>
+<div id="pdfviewer">
+  <canvas id="pdfcanvas"/>
+
+  <ul uib-pagination
+      ng-if="$ctrl.file.pdf"
+  	  total-items="$ctrl.file.pdf.numPages * 10"
+  	  ng-model="$ctrl.file.currentPageNum"
+  	  max-size="5"
+  	  class="pagination-sm"
+  	  boundary-links="true"
+  	  force-ellipses="true">
+  </ul>
 </div>
