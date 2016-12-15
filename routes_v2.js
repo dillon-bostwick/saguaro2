@@ -64,11 +64,13 @@ router.use((req, res, next) => {
     }
 });
 
-router.get('/currentuser', (req, res, next) => { res.send(req.user); }); // TODO: strip down some info, so that only includes first and last names
+router.get('/currentuser', Controllers.getCurrentUser);
 router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);
 router.get('/refreshdropzone', Controllers.refreshDropzone);
 router.post('/submitinvoice', Controllers.submitInvoice);
+router.delete('/invoice/:id', Controllers.deleteInvoice);
+router.post('/archiveInvoice/:id', Controllers.archiveInvoice);
 
 // Do "Crudables":
 

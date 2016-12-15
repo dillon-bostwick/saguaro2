@@ -123,9 +123,9 @@ angular.
                 if (!self.canEdit) {
                     self.CurrentUser.canChange = _.map(self.CurrentUser.canChange, (value) => {
                         return false;
-                    })
+                    });
                 }
-            })
+            });
 
             ////////////////////////////////////////////////////////////////////
             //FORM CTRL METHODS

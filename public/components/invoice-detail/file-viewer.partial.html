@@ -7,6 +7,7 @@
 
   <ul uib-pagination
       ng-if="$ctrl.file.pdf"
+      ng-change="$ctrl.loadPdfPage()"
   	  total-items="$ctrl.file.pdf.numPages * 10"
   	  ng-model="$ctrl.file.currentPageNum"
   	  max-size="5"
