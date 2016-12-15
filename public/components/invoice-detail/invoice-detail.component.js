@@ -150,6 +150,7 @@ angular.
                     })
                 },
                 function(error) {
+                    console.log(error);
                     var canvas = document.getElementById('pdfviewer');
                     canvas.parentNode.removeChild(canvas);
                 });
@@ -317,7 +318,20 @@ angular.
             }
 
             self.deleteInvoice = (isArchive) => {
-                alert("Delete is not ready!");
+                var promise = isArchive ? api.controls.archiveInvoice(self.Invoice._id)
+                                        : api.controls.deleteInvoice(self.Invoice._id);
+
+                promise.then((res) => {
+                    $window.location.href = '/#!/dashboard' + $httpParamSerializer({
+                            alert: 'Successfully ' + (isArchive ? 'archived' : 'deleted') + ' invoice ' + self.Invoice.invNum,
+                            type: 'success'
+                        })
+                },
+                (error) => {
+                    console.log(error);
+
+                    self.alertMessage = { alert: error.data, type: 'error' };
+                })
             }
 
             /* Given an id and a collection, return the name of that document
@@ -375,6 +389,8 @@ angular.
                     return callback(null, null);
                 },
                 (error) => {
+                    console.log(error);
+
                     return callback(error, null);
                 });
             }

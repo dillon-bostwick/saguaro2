@@ -52,6 +52,14 @@ angular.
                     hold: hold,
                     override: override
                 })
+            },
+
+            deleteInvoice: (id) => {
+                return $http.delete(urlPrefix + 'invoice/' + id);
+            },
+
+            archiveInvoice: (id) => {
+                return $http.post(urlPrefix + 'archiveinvoice/' + id);
             }
         }
 
