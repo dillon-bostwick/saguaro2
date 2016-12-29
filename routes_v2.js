@@ -30,7 +30,7 @@ router.get('/auth/dropbox/callback', passport.authenticate('dropbox-oauth2', aut
 
 /**
  * Error-handling for auth routes
- * 
+ *
  * TODO: Should the view for error handling for auth routes be rendered by Express or by Angular?
  * TODO: Shouldn't always send 500 - sometimes its 4xx depending on what happened
  */
@@ -48,7 +48,7 @@ router.use((req, res, next) => {
         res.sendStatus(401)
     } else if (!req.user && globals.testingMode) {
         console.log('Bypassing cookie verification and logging in manually');
-        
+
         User.findById(globals.testUserId, (err, user) => {
             if (err) {
                 res.sendStatus(500)
@@ -65,6 +65,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/currentuser', Controllers.getCurrentUser);
+router.get('/teamqueues', Controllers.getTeamQueues);
 router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);
 router.get('/refreshdropzone', Controllers.refreshDropzone);
@@ -95,8 +96,8 @@ router.use((err, req, res, next) => {
 	} else {
 		console.log(err || 'Error-handling middleware called with no error');
 	}
-	
-	res.sendStatus(500); 
+
+	res.sendStatus(500);
 });
 
 
