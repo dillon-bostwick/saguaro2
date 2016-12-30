@@ -42,6 +42,10 @@ angular.
                 return $http.get(urlPrefix + 'ownqueues');
             },
 
+            getTeamQueues: () => {
+                return $http.get(urlPrefix + 'teamqueues');
+            },
+
             refreshDropzone: () => {
                 return $http.get(urlPrefix + 'refreshdropzone');
             },

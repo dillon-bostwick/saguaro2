@@ -65,6 +65,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/currentuser', Controllers.getCurrentUser);
+router.get('/archives', Controllers.queryArchives);
 router.get('/teamqueues', Controllers.getTeamQueues);
 router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);

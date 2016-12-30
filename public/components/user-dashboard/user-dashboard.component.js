@@ -4,7 +4,7 @@ angular.
     module('userDashboard').
     component('userDashboard', {
         templateUrl: 'components/user-dashboard/user-dashboard.template.html',
-        controller: function UserDashboardController(api, $window, $q, $location) {
+        controller: function UserDashboardController(api, $window, $q, $location, $scope) {
         	var self = this;
             window.ctrl = self;
             self.path = $window.location.hash
@@ -54,9 +54,14 @@ angular.
             api.controls.getCurrentUser().then((res) => {
                 self.CurrentUser = res.data;
             });
-            
+
             api.controls.getOwnQueues().then((res) => {
+                self.invList = res.data;
                 self.ownQueues = res.data;
+            });
+
+            api.controls.getTeamQueues().then((res) => {
+                self.teamQueues = res.data;
             });
 
             self.view = 'QUEUE'; //Must be one of [QUEUE, TEAM, ARCHIVE] - QUEUE by default
@@ -70,10 +75,10 @@ angular.
             self.updateInvList = function() {
                 switch(self.view) {
                     case 'QUEUE':
-                        self.invList = api.controls.getOwnQueues();
+                        self.invList = self.ownQueues;
                         break;
                     case 'TEAM':
-                        alert('team view function is not ready');
+                        self.invList = self.teamQueues;
                         break;
                     case 'ARCHIVE':
                         alert('Archive function is not ready!');
