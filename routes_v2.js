@@ -71,8 +71,8 @@ router.get('/ownqueues', Controllers.getOwnQueues);
 router.get('/invoice/:id', Controllers.getInvoice);
 router.get('/refreshdropzone', Controllers.refreshDropzone);
 router.post('/submitinvoice', Controllers.submitInvoice);
-router.delete('/invoice/:id', Controllers.deleteInvoice);
 router.post('/archiveInvoice/:id', Controllers.archiveInvoice);
+router.delete('/invoice/:id', Controllers.deleteInvoice);
 
 // Do "Crudables":
 

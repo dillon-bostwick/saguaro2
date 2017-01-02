@@ -55,7 +55,7 @@ angular.
             };
 
             // External requests:
-            
+
             self.Vendors = api.crudResources.Vendor.query();
             self.Hoods = api.crudResources.Hood.query();
             self.Expenses = api.crudResources.Expense.query();
@@ -129,7 +129,7 @@ angular.
 
             ////////////////////////////////////////////////////////////////////
             //FORM CTRL METHODS
-            
+
             /**
              * Load file given specified self.file data
              */
@@ -215,7 +215,7 @@ angular.
                         break;
                     case 'Dev':
                         activityOptions = self.Activities.filter(function(activity) {
-                            return   0 <= activity.code && 
+                            return   0 <= activity.code &&
                                    399 >= activity.code
                         });
 

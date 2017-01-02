@@ -33,7 +33,7 @@
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'EXPENSE'"
 							ng-model="lineItem.category">
-						Expense 
+						Expense
 					</label>
 
 					<label class="btn btn-primary"
@@ -91,7 +91,7 @@
 				<div ng-if="lineItem.category === 'CIP' &&
 				            lineItem.subHood !== '' && lineItem.subHood != null">
 
-					<button 
+					<button
 						class="btn btn-secondary btn-sm"
 						ng-if="$ctrl.CurrentUser.canChange.activities"
 						ng-click="$ctrl.addActivity(lineItem)">
@@ -103,17 +103,17 @@
 					<!-- http://www.codelord.net/2014/05/10/understanding-angulars-magic-dont-bind-to-primitives/ -->
 
 						<!-- code-->
-						<select 
+						<select
 							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
 							ng-disabled="!$ctrl.CurrentUser.canChange.activities"
 							ng-model="lineItem._activities[$index]"
-							ng-options="option._id 
-								as option.code 
+							ng-options="option._id
+								as option.code
 								for option
 								in $ctrl.getActivityOptions(lineItem, $index)">
 						</select>
 
-						<!-- desc -->					
+						<!-- desc -->
 						<select
 							name="Line Item #{{$parent.$index + 1}}: Activity #{{$index + 1}}"
 							ng-disabled="!$ctrl.CurrentUser.canChange.activities"

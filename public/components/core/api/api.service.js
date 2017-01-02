@@ -64,6 +64,10 @@ angular.
 
             archiveInvoice: (id) => {
                 return $http.post(urlPrefix + 'archiveinvoice/' + id);
+            },
+
+            queryArchives: (query) => {
+                return $http.get(urlPrefix + 'archives?' + $.param(query))
             }
         }
 

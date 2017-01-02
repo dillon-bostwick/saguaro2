@@ -1,0 +1,193 @@
+<div class="row">
+	<div class="col-sm-2"></div>
+
+	<div class="col-sm-6">
+	   <div class="span12 well well-lg">
+           <input ng-model="$ctrl.simpleArchiveQueryString"/>
+
+            <button class="btn btn-primary" ng-click="$ctrl.simpleArchiveQuery()">Simple Search</button>
+		</div>
+	</div>
+
+	<div class="col-sm-2">
+		<div class="span12 well well-lg">
+			<button class="btn btn-primary" ng-click="$ctrl.advancedSearchBox = !$ctrl.advancedSearchBox;">Advanced Search</button>
+		</div>
+	</div>
+
+	<div class="col-sm-2"></div>
+</div>
+
+<!-- Advanced search query fillers-->
+<div ng-if="$ctrl.advancedSearchBox">
+	<div class="col-sm-1"></div>
+
+	<div class="col-sm-10">
+		<div class="span12 well well-lg">
+			<div>
+				<div class="btn-group">
+					<label class="btn btn-sm btn-primary"
+						   ng-model="$ctrl.advancedSearch.mongoQueryIsIntersectionOnly"
+						   uib-btn-radio="!true">
+						   OR
+					</label>
+
+					<label class="btn btn-sm btn-primary"
+						   ng-model="$ctrl.advancedSearch.mongoQueryIsIntersectionOnly"
+						   uib-btn-radio="true">
+						   AND
+					</label>
+				</div>
+			</div>
+
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th>Invoice numbers</th>
+
+						<td>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.invNums.push('')">+</button>
+						</td>
+
+						<td ng-repeat="invNum in $ctrl.advancedSearch.invNums track by $index">
+							<span>
+								<input ng-model="$ctrl.advancedSearch.invNums[$index]" type="text">
+
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.invNums.splice($index, 1)">&times;</button>
+							</span>
+						</td>
+					</tr>
+
+					<tr>
+						<th>Vendors</th>
+
+						<td>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._vendors.push('')">+</button>
+						<td>
+
+						<td ng-repeat="vendor in $ctrl.advancedSearch._vendors track by $index">
+							<span>
+								<select
+									ng-model="$ctrl.advancedSearch._vendors[$index]"
+									ng-options="vendor._id
+										as vendor.name
+										for vendor
+										in $ctrl.Vendors">
+								</select>
+
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._vendors.splice($index, 1)">&times;</button>
+							</span>
+						</td>
+					</tr>
+
+					<tr>
+						<th>Hoods</th>
+
+						<td>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._hoods.push('')">+</button>
+						</td>
+
+						<td ng-repeat="hood in $ctrl.advancedSearch._hoods track by $index">
+							<span>
+								<select
+									ng-model="$ctrl.advancedSearch._hoods[$index]"
+									ng-options="hood._id
+										as hood.name
+										for hood
+										in $ctrl.Hoods">
+								</select>
+
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._hoods.splice($index, 1)">&times;</button>
+							</span>
+						</td>
+					</tr>
+
+					<tr>
+						<th>Activities</th>
+
+						<td>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._activities.push('')">+</button>
+						</td>
+
+						<td ng-repeat="activity in $ctrl.advancedSearch._activities track by $index">
+							<span>
+								<select
+									ng-model="$ctrl.advancedSearch._activities[$index]"
+									ng-options="activity._id
+										as activity.desc
+										for activity
+										in $ctrl.Activities">
+								</select>
+
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._activities.splice($index, 1)">&times;</button>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>Expenses</th>
+
+						<td>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._expenses.push('')">+</button>
+						</td>
+
+						<td ng-repeat="expense in $ctrl.advancedSearch._expenses track by $index">
+							<span>
+								<select
+									ng-model="$ctrl.advancedSearch._expenses[$index]"
+									ng-options="expense._id
+										as expense.name
+										for expense
+										in $ctrl.Expenses">
+								</select>
+
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._activities.splice($index, 1)">&times;</button>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>File name match</th>
+
+						<td>
+							<input ng-model="$ctrl.advancedSearch.filename" type="text"/>
+						</td>
+
+						<td>
+							Include legacy
+							<input ng-model="$ctrl.advancedSearch.filenameIncludesLegacy" type="checkbox" />
+						</td>
+
+						<td>
+							Include Saguaro
+							<input ng-model="$ctrl.advancedSearch.filenameIncludesSaguaro" type="checkbox" />
+						</td>
+					</tr>
+					<tr>
+						<th>File content match</th>
+
+						<td>
+							<input ng-model="$ctrl.advancedSearch.fileContent" type="text"/>
+						</td>
+
+						<td>
+							Include legacy
+							<input ng-model="$ctrl.advancedSearch.fileContentIncludesLegacy" type="checkbox" />
+						</td>
+
+						<td>
+							Include Saguaro
+							<input ng-model="$ctrl.advancedSearch.fileContentIncludesSaguaro" type="checkbox" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div>
+				<button class="btn btn-secondary" ng-click="$ctrl.advancedSearchBox = false;">Cancel</button>
+
+				<button class="btn btn-primary" ng-click="$ctrl.advancedArchiveQuery();">Submit</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-1"></div>
+</div>

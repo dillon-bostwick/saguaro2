@@ -51,24 +51,44 @@ angular.
 
             // External requests:
 
-            api.controls.getCurrentUser().then((res) => {
+            api.controls.getCurrentUser()
+            .then((res) => {
                 self.CurrentUser = res.data;
             });
 
-            api.controls.getOwnQueues().then((res) => {
+            api.controls.getOwnQueues()
+            .then((res) => {
                 self.invList = res.data;
                 self.ownQueues = res.data;
             });
 
-            api.controls.getTeamQueues().then((res) => {
+            api.controls.getTeamQueues()
+            .then((res) => {
                 self.teamQueues = res.data;
             });
 
+            // UI var onload defaults:
+
             self.view = 'QUEUE'; //Must be one of [QUEUE, TEAM, ARCHIVE] - QUEUE by default
             self.currentSorter = self.SORTOPTIONS[0].value;
+            self.alertMessage = $location.search().alert || ''; // Alerter based on query string
+            self.advancedSearchBox = false;
 
-            // Alerter based on query string
-            self.alertMessage = $location.search().alert || '';
+            // advanced search fields:
+            self.advancedSearch = {
+                invNums: [],
+                _vendors: [],
+                _hoods: [],
+                _activities: [],
+                _expenses: [],
+                filename: '',
+                fileContent: '',
+                filenameIncludesLegacy: true,
+                filenameIncludesSaguaro: true,
+                fileContentIncludesLegacy: true,
+                fileContentIncludesSaguaro: true,
+                mongoQueryIsIntersectionOnly: false
+            };
 
             ////////////////////////////////////////////////////////////////////
 
@@ -81,7 +101,10 @@ angular.
                         self.invList = self.teamQueues;
                         break;
                     case 'ARCHIVE':
-                        alert('Archive function is not ready!');
+                        self.invList = [];
+                        self.simpleArchiveQueryString = '';
+                        self.advancedSearchBox = false;
+                        self.fillCrudables();
                         break;
                     default:
                         throw new Error;
@@ -115,6 +138,37 @@ angular.
              */
             self.redirectInvoiceDetail = function(id) {
                 $window.location.href = '/#!/invoices/' + id;
+            }
+
+            self.simpleArchiveQuery = function() {
+                api.controls.queryArchives({
+                    simpleQuery: self.simpleArchiveQueryString
+                })
+                .then((res) => {
+                    self.invList = {
+                        'Simple Search Results': res.data
+                    };
+                })
+                .catch(console.log);
+            }
+
+            self.advancedArchiveQuery = function() {
+                api.controls.queryArchives(self.advancedSearch)
+                .then((res) => {
+                    self.invList = {
+                        'Advanced Search Results': res.data
+                    };
+                })
+                .catch(console.log);
+            }
+
+            self.fillCrudables = function() {
+                if (!self.Vendors) { // and all the rest...
+                    self.Vendors = api.crudResources.Vendor.query();
+                    self.Hoods = api.crudResources.Hood.query();
+                    self.Expenses = api.crudResources.Expense.query();
+                    self.Activities = api.crudResources.Activity.query();
+                }
             }
 		}
     });

@@ -50,6 +50,8 @@
 	<div class="col-sm-2"></div>
 </div>
 
+<div ng-if="$ctrl.view === 'ARCHIVE'" ng-include="'components/user-dashboard/archive-searcher.partial.html'"></div>
+
 <div ng-repeat="(queueName, queue) in $ctrl.invList">
 	<div class="col-sm-12">
 		<div class="well well-lg">
