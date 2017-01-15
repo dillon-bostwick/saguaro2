@@ -6,7 +6,7 @@
   <canvas id="pdfcanvas"/>
 
   <ul uib-pagination
-      ng-if="$ctrl.file.pdf"
+      ng-if="$ctrl.file.pdf && $ctrl.file.pdf.numPages !== 1"
       ng-change="$ctrl.loadPdfPage()"
   	  total-items="$ctrl.file.pdf.numPages * 10"
   	  ng-model="$ctrl.file.currentPageNum"

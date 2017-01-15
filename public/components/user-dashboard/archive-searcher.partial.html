@@ -18,7 +18,7 @@
 	<div class="col-sm-2"></div>
 </div>
 
-<!-- Advanced search query fillers-->
+<!-- Advanced search query filters-->
 <div ng-if="$ctrl.advancedSearchBox">
 	<div class="col-sm-1"></div>
 
@@ -46,14 +46,16 @@
 						<th>Invoice numbers</th>
 
 						<td>
-							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.invNums.push('')">+</button>
+							<button class="btn btn-xs"
+									ng-click="$ctrl.advancedSearch.mongoQuery.invNums.push('')"
+									ng-disabled="$ctrl.advancedSearch.mongoQuery.invNums.length >= 4">+</button>
 						</td>
 
-						<td ng-repeat="invNum in $ctrl.advancedSearch.invNums track by $index">
+						<td ng-repeat="invNum in $ctrl.advancedSearch.mongoQuery.invNums track by $index">
 							<span>
-								<input ng-model="$ctrl.advancedSearch.invNums[$index]" type="text">
+								<input ng-model="$ctrl.advancedSearch.mongoQuery.invNums[$index]" type="text">
 
-								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.invNums.splice($index, 1)">&times;</button>
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.mongoQuery.invNums.splice($index, 1)">&times;</button>
 							</span>
 						</td>
 					</tr>
@@ -62,20 +64,22 @@
 						<th>Vendors</th>
 
 						<td>
-							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._vendors.push('')">+</button>
-						<td>
+							<button class="btn btn-xs"
+									ng-click="$ctrl.advancedSearch.mongoQuery._vendors.push('')"
+									ng-disabled="$ctrl.advancedSearch.mongoQuery._vendors.length >= 4">+</button>
+						</td>
 
-						<td ng-repeat="vendor in $ctrl.advancedSearch._vendors track by $index">
+						<td ng-repeat="vendor in $ctrl.advancedSearch.mongoQuery._vendors track by $index">
 							<span>
 								<select
-									ng-model="$ctrl.advancedSearch._vendors[$index]"
+									ng-model="$ctrl.advancedSearch.mongoQuery._vendors[$index]"
 									ng-options="vendor._id
 										as vendor.name
 										for vendor
 										in $ctrl.Vendors">
 								</select>
 
-								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._vendors.splice($index, 1)">&times;</button>
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.mongoQuery._vendors.splice($index, 1)">&times;</button>
 							</span>
 						</td>
 					</tr>
@@ -84,20 +88,22 @@
 						<th>Hoods</th>
 
 						<td>
-							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._hoods.push('')">+</button>
+							<button class="btn btn-xs"
+									ng-click="$ctrl.advancedSearch.mongoQuery._hoods.push('')"
+									ng-disabled="$ctrl.advancedSearch.mongoQuery._hoods.length >= 4">+</button>
 						</td>
 
-						<td ng-repeat="hood in $ctrl.advancedSearch._hoods track by $index">
+						<td ng-repeat="hood in $ctrl.advancedSearch.mongoQuery._hoods track by $index">
 							<span>
 								<select
-									ng-model="$ctrl.advancedSearch._hoods[$index]"
+									ng-model="$ctrl.advancedSearch.mongoQuery._hoods[$index]"
 									ng-options="hood._id
 										as hood.name
 										for hood
 										in $ctrl.Hoods">
 								</select>
 
-								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._hoods.splice($index, 1)">&times;</button>
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.mongoQuery._hoods.splice($index, 1)">&times;</button>
 							</span>
 						</td>
 					</tr>
@@ -106,20 +112,20 @@
 						<th>Activities</th>
 
 						<td>
-							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._activities.push('')">+</button>
+							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.mongoQuery._activities.push('')">+</button>
 						</td>
 
-						<td ng-repeat="activity in $ctrl.advancedSearch._activities track by $index">
+						<td ng-repeat="activity in $ctrl.advancedSearch.mongoQuery._activities track by $index">
 							<span>
 								<select
-									ng-model="$ctrl.advancedSearch._activities[$index]"
+									ng-model="$ctrl.advancedSearch.mongoQuery._activities[$index]"
 									ng-options="activity._id
 										as activity.desc
 										for activity
 										in $ctrl.Activities">
 								</select>
 
-								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._activities.splice($index, 1)">&times;</button>
+								<button class="btn btn-xs" ng-click="$ctrl.advancedSearch.mongoQuery._activities.splice($index, 1)">&times;</button>
 							</span>
 						</td>
 					</tr>
@@ -127,13 +133,15 @@
 						<th>Expenses</th>
 
 						<td>
-							<button class="btn btn-xs" ng-click="$ctrl.advancedSearch._expenses.push('')">+</button>
+							<button class="btn btn-xs"
+									ng-click="$ctrl.advancedSearch.mongoQuery._expenses.push('')"
+									ng-disabled="$ctrl.advancedSearch.mongoQuery._expenses.length >= 4">+</button>
 						</td>
 
-						<td ng-repeat="expense in $ctrl.advancedSearch._expenses track by $index">
+						<td ng-repeat="expense in $ctrl.advancedSearch.mongoQuery._expenses track by $index">
 							<span>
 								<select
-									ng-model="$ctrl.advancedSearch._expenses[$index]"
+									ng-model="$ctrl.advancedSearch.mongoQuery._expenses[$index]"
 									ng-options="expense._id
 										as expense.name
 										for expense
@@ -183,7 +191,6 @@
 
 			<div>
 				<button class="btn btn-secondary" ng-click="$ctrl.advancedSearchBox = false;">Cancel</button>
-
 				<button class="btn btn-primary" ng-click="$ctrl.advancedArchiveQuery();">Submit</button>
 			</div>
 		</div>

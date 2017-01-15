@@ -76,11 +76,13 @@ angular.
 
             // advanced search fields:
             self.advancedSearch = {
-                invNums: [],
-                _vendors: [],
-                _hoods: [],
-                _activities: [],
-                _expenses: [],
+                mongoQuery: {
+                    invNums: [],
+                    _vendors: [],
+                    _hoods: [],
+                    _activities: [],
+                    _expenses: [],
+                },
                 filename: '',
                 fileContent: '',
                 filenameIncludesLegacy: true,
@@ -134,10 +136,14 @@ angular.
                         || 'N/A';
             }
 
-            /* Given an invoice _id, redirect to the page for that invoice
+            /* Given an invoice, redirect to the page for that invoice
              */
-            self.redirectInvoiceDetail = function(id) {
-                $window.location.href = '/#!/invoices/' + id;
+            self.redirectInvoiceDetail = function(invoice) {
+                if (invoice.isLegacy) {
+                    $window.location.href = 'https://www.dropbox.com/home' + invoice.path_lower; // just check it out in dropbox
+                } else {
+                    $window.location.href = '/#!/invoices/' + invoice._id;
+                }
             }
 
             self.simpleArchiveQuery = function() {
@@ -169,6 +175,14 @@ angular.
                     self.Expenses = api.crudResources.Expense.query();
                     self.Activities = api.crudResources.Activity.query();
                 }
+            }
+
+            self.refreshDropzone = function() {
+                api.controls.refreshDropzone()
+                .then((res) => {
+
+                })
+                .catch(console.log);
             }
 		}
     });

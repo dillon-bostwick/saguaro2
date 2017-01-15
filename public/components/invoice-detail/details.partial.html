@@ -29,6 +29,7 @@
 						<button
 							type="button"
 							class="btn btn-default"
+							ng-disabled="!$ctrl.CurrentUser.canChange.serviceDate"
 							ng-click="$ctrl.openDate = true">
 
 							<i class="glyphicon glyphicon-calendar"></i>

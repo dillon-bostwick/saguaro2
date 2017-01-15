@@ -23,6 +23,7 @@
 			<td ng-disabled="!$ctrl.CurrentUser.canChange.lineItem" >
 				<div class="btn-group">
 					<label class="btn btn-primary"
+							ng-disabled="!$ctrl.CurrentUser.canChange.lineItem"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'CIP'"
 							ng-model="lineItem.category">
@@ -30,6 +31,7 @@
 					</label>
 
 					<label class="btn btn-primary"
+							ng-disabled="!$ctrl.CurrentUser.canChange.lineItem"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'EXPENSE'"
 							ng-model="lineItem.category">
@@ -37,6 +39,7 @@
 					</label>
 
 					<label class="btn btn-primary"
+							ng-disabled="!$ctrl.CurrentUser.canChange.lineItem"
 							name="Line Item #{{$index + 1}}: Type"
 							uib-btn-radio="'WARRANTY'"
 							ng-model="lineItem.category">
@@ -150,9 +153,11 @@
 				</button>
 			</td>
 
+			<!-- Description input -->
 			<td>
 				<input
 					name="Line Item #{{$index + 1}}: Description"
+					ng-disabled="!$ctrl.CurrentUser.canChange.lineItem"
 					type="text"
 					ng-model="lineItem.desc"/>
 			</td>
@@ -172,6 +177,7 @@
 		<tr ng-disabled="!$ctrl.CurrentUser.canChange.lineItem">
 			<td colspan="8">
 				<button class="btn btn-block btn-secondary"
+						ng-disabled="!$ctrl.CurrentUser.canChange.lineItem"
 						ng-click="$ctrl.addLineItem()">
 					Add Line Item
 				</button>

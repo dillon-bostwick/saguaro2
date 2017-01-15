@@ -4,7 +4,7 @@
 
 <!-- list selector -->
 <div class="row">
-	<div class="col-sm-2"></div>
+	<div class="col-sm-1"></div>
 
 	<div class="col-sm-4">
 	   <div class="span12 well well-lg">
@@ -47,7 +47,13 @@
 		</div>
 	</div>
 
-	<div class="col-sm-2"></div>
+	<div class="col-sm-2">
+		<div class="span12 well well-lg">
+			<button class="btn btn-primary" ng-click="$ctrl.refreshDropzone();">Dropzone</button>
+		</div>
+	</div>
+
+	<div class="col-sm-1"></div>
 </div>
 
 <div ng-if="$ctrl.view === 'ARCHIVE'" ng-include="'components/user-dashboard/archive-searcher.partial.html'"></div>
@@ -57,7 +63,7 @@
 		<div class="well well-lg">
 			<h3>{{queueName}}</h3>
 
-			<p ng-if="queue.length === 0">This queue is empty</p>
+			<p ng-if="queue.length === 0">Nothing to see here</p>
 
 			<table class="table table-hover" ng-if="queue.length !== 0">
 				<thead>
@@ -67,16 +73,25 @@
 						<th>Vendor</th>
 						<th>Details</th>
 						<th>Total</th>
+						<th ng-if="$ctrl.view === 'ARCHIVE'">Origin</th>
 					</tr>
 				</thead>
 
 				<tbody ng-repeat="invoice in queue | orderBy: $ctrl.currentSorter">
-					<tr ng-click="$ctrl.redirectInvoiceDetail(invoice._id)">
+					<tr ng-if="$ctrl.view !== 'ARCHIVE' || !invoice.isLegacy"
+						ng-click="$ctrl.redirectInvoiceDetail(invoice)">
 						<td>{{invoice.actions[0].date | date : 'MMM d, y h:mm a'}}</td> <!-- last is always received -->
 						<td>{{invoice.serviceDate | date}}</td>
 						<td>{{invoice._vendor.name}}</td>
 						<td>{{$ctrl.getDetailStr(invoice)}}</td>
 						<td>{{(invoice.amount | currency) || 'Not entered'}}</td>
+						<td ng-if="$ctrl.view === 'ARCHIVE'">Saguaro</td>
+					</tr>
+
+					<tr ng-if="$ctrl.view === 'ARCHIVE' && invoice.isLegacy"
+						ng-click="$ctrl.redirectInvoiceDetail(invoice)">
+						<td colspan="5" class="span12">Path: {{invoice.path_display}}</td>
+						<td>Legacy</td>
 					</tr>
 				</tbody>
 			</table>

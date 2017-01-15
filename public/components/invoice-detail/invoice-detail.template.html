@@ -2,12 +2,16 @@
 
 <div ng-include="'navbar.partial.html'"></div>
 
-<h4 class="span12" ng-if="!$ctrl.canEdit">
+<h4 class="span12" ng-if="!$ctrl.canEdit && !$ctrl.isArchive">
 		This invoice is read-only, because it is not in your queue
 </h4>
 
 <h4 class="span12" ng-if="$ctrl.canEdit">
 		This invoice currently belongs to {{$ctrl.currentQueueName}}
+</h4>
+
+<h4 class="span12" ng-if="$ctrl.isArchive">
+		This is an archived invoice
 </h4>
 
 <div class="row">

@@ -92,13 +92,19 @@ angular.
                         self.alertMessage = status;
                     }
 
+                    self.isArchive = res.data.isArchive;
                     self.Invoice = res.data.invoice;
-                    self.canEdit = res.data.location.belongsToUser;
+                    self.canEdit = res.data.isArchive ? false : res.data.location.belongsToUser;
                     self.file = res.data.file;
                     self.file.img = false;
-                    self.currentQueueName = res.data.location.isPersonal
+
+                    if (self.canEdit) {
+                        self.currentQueueName = res.data.location.isPersonal
                                             ? 'your own queue'
                                             : res.data.location.currentGroupName;
+                    }
+
+                    
 
                     //UI resets after invoice is found:
                     self.Invoice.serviceDate = new Date(self.Invoice.serviceDate);

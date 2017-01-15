@@ -13,7 +13,13 @@
     max-height:100%;
 }
 
+select {
+    width: 10em;
+}
 
+table {
+    table-layout: fixed;
+}
 
 /* AIM:  */
 input.ng-valid.aim-modified {
